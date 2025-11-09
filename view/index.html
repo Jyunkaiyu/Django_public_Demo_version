@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/static/plugins/bootstrap-5.2.0-beta1-dist/css/bootstrap.css">
+<!-- <link rel="stylesheet" href="/static/css/index_style.css"> -->
+<!-- <script src="js\index_script.js"></script>  -->
+<html Access-Control-Allow-Origin: *> 
+  <head> 
+
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="description" content="3D-model">
+     <meta name="keywords" content="3D, model">
+     <title>web</title>
+  </head>
+  
+  <body>
+    <!-- 格式要寫對static -->
+    {% load static %}
+    <h1>{{name}}</h1>
+    <header class="p-3 bg-dark text-white">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+          </a>
+  
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+          </ul>
+  
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+            <input type="search" class="form-control form-control-dark text-white bg-dark" placeholder="Search..." aria-label="Search">
+          </form>
+  
+          <div class="text-end">
+            <button type="button" class="btn btn-outline-light me-2">Login</button>
+            <button type="button" class="btn btn-warning">Sign-up</button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- <img src="{% static 'images/wallhaven-z8dg9y_3840x2160.png' %}" > -->
+
+    <model-viewer bounds="tight" src="{% static 'model/lego.glb' %}" ar ar-modes="scene-viewer webxr quick-look" camera-controls environment-image="neutral" poster="poster.webp" shadow-intensity="1" style="background-color:black; " >
+      <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+      </div>
+      <button slot="ar-button" id="ar-button">
+          View in your space
+      </button>
+      <!-- <div id="ar-prompt">
+          <img src="https://modelviewer.dev/shared-assets/icons/hand.png">
+      </div> -->
+    </model-viewer>
+    <!-- Loads model-viewer for modern browsers -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+    <!-- Loads model-viewer for older browsers -->
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+    
+    <div class="container">
+      <div class="row row-cols-3 text-center">
+        <div class="col"><img class="product_pic" src="{% static 'images/Lancool_II_01.jpg' %}" >Lancool_II</div>   
+        <div class="col"><img class="product_pic" src="{% static 'images/Lancool_One_01.png' %}" >Lancool_One</div>                
+        <div class="col"><img class="product_pic" src="{% static 'images/Lancool_One_01.png' %}" >Lancool_One</div>                
+        <div class="col"><img class="product_pic" src="{% static 'images/Lancool_One_01.png' %}" >Lancool_One</div>                
+      </div>
+    </div>
+
+    <div class="bd-example-snippet bd-code-snippet position-absolute top-100 start-50 translate-middle"><div class="bd-example">
+      <nav aria-label="Another pagination example ">
+        <ul class="pagination pagination-lg flex-wrap">
+          <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+      </div>
+    </div>
+    <div>
+      <input type="text" id="fname" name="fname">
+    </div>
+  </body>
+
+  <footer>
+
+  </footer>
+  <style>
+    .product_pic{
+      width:100px;      
+    }
+  </style>
+</html>

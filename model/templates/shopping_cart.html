@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+
+<head>
+    {% load static%}
+    {% load my_tags %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/home_imag/favicon.ico' %}" type="image/x-icon" />
+    <title>購物車</title>
+    <!-- 將我們需要的google font字體連接 英文 -->
+    <link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+
+    <!-- 將我們需要的google font字體連接 中文 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
+
+    <!-- 與css連接 -->
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shopping_cart.css' %}">
+    <!-- 連接bootstrap相關資源 -->
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="{% static  'js/jquery-3.6.0.min.js' %}"></script>
+    <!-- 使用標籤 -->
+    
+
+</head>
+<style>
+    .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #000513 !important;
+    color: #56E096!important;
+    font-family: Coda!important;
+}
+</style>
+<body class="container-head container-fluid" style="height: 100%;">
+  <form method="post">
+    {% csrf_token %}
+    <div>
+        <div class="row  text-center">
+			<div class="col-1 ">
+				
+			</div>
+			<div class="col-2 text-left">
+				<a href="{% url 'home' %}"><img  type ="button" id="logo" src="{% static 'images/home_imag/logo.svg' %}" ></a>
+			</div>
+			<div class="col-2 d-flex text-left align-items-center">
+				<p class="checkout_txt"><b>購物車</b></p>
+			</div>
+			<div class="col">
+			</div>
+		</div>
+        <!-- <div class="row  text-center">
+            <div class="col-lg-2 col-sm-2 col-3">
+                <a href="{% url 'home' %}"><img type="button" id="logo" src="{% static 'images/home_imag/logo.png' %}"></a>
+            </div>
+            <div class="col-lg-3 col-sm-4 col-9 d-flex align-items-center">
+                <p class="checkout_txt">購物車</p>
+            </div>
+            <div class="col-lg-7 col-sm-6 col-0">
+            </div>
+        </div> -->
+
+        <div style="height: 80px;"></div>
+
+        <div class="container">
+            <!-- justify-content-around 平均寬 -->
+            <div class="row justify-content-around">
+                <div class="col-10">
+
+                    <table class="table">
+                        <thead class="table_title">
+                            <tr>
+                                <!-- 全選checkbox -->
+                                <th scope="col" class="text-center"><input class="form-check-input" type="checkbox"
+                                        value="" id="check_all"></th>
+                                <th scope="col" colspan="2">
+                                    <div class="form-check">
+                                        <label class="form-check-label  text-right" for="Product">
+                                            <b>全部商品</b>
+                                        </label>
+                                    </div>
+                                </th>
+                                <th scope="col" class="text-center"><b>單價</b></th>
+                                <th scope="col" class="text-center"><b>數量</b></th>
+                                <th scope="col" class="text-center"><b>總計</b></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="table_content">
+                            {% for i in products %}
+                            <!-- vertical-align:middle; 垂直置中 -->
+                            <tr style="vertical-align:middle;">
+                                <!-- 商品checkbox -->
+                                <td style="width: 5%;"><input class="form-check-input s_chk" name="check" type="checkbox" value="{% widthratio i.counts 1 i.product_name.price %}"
+                                        id="{{ i.id }}"></td>
+                                <!-- 商品圖片 -->
+                                <td style="width: 15%;">
+                                    <image width="100px" src="{% static i.product_name.product_name|image %}">
+                                </td>
+                                <!-- 商品名稱 -->
+                                <td style="width: 30%; color: white;">{{ i.product_name.product_name }}</td>
+                                <!-- 商品單價 -->
+                                <td class="text-center" style="width: 15%;">{{ i.product_name.price }}</td>
+                                <!-- 商品數量 -->
+                                <td class="text-center" style="width: 15%;">
+                                    <div class="input-group w-auto p-3 " class="a">
+                                        <input id="{{ i.id }}" type="button" class="form-control counts  btn btn-primary btn-outline-light" value="-">
+                                        <input id="text_{{ i.id }}" type="text" class="form-control text-center text  btn btn-primary btn-outline-light" value="{{ i.counts }}" onfocus="this.select()">
+                                        <input id="{{ i.id }}" type="button" class="form-control counts  btn btn-primary btn-outline-light" value="+">
+                                    </div>
+                                </td>
+                                <!-- 商品總計 -->
+                                <td class="text-center" style="width: 15%;" id="{{ i.id }}_sum">
+                                    {% widthratio i.counts 1 i.product_name.price %}
+                                </td>
+                                <!-- 刪除button -->
+                                <td style="width: 5%;"><a href="{% url 'delete_check' i.id %}"><img type="button" class="icon" src="{% static 'images/home_imag/delete_icon.png' %}"></a></td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                    <br><br><br>
+
+                    <br><br><br><br>
+                    <!-- 釘選底部 -->
+                    <div class="row row-cols-2 justify-content-around">
+                        <div class="col-4" id="total">
+                            <div id="liveAlertPlaceholder" class=""></div>
+                            <table>
+                                <tr style="vertical-align:middle;">
+                                    <td style="width: 5%;"></td>
+                                    <td class="text-end item" style="width: 27.5%;" ><b>商品種類　</b></td>
+                                    <!-- 商品數量 -->
+                                    <td class="text-start item" style="width: 15%;" id="count">0</td>
+                                    <td style="width: 5%;"></td>
+                                    <td class="text-end total" style="width: 27.5%;"><b>總計　</b></td>
+                                    <!-- 總計 -->
+                                    <td class="text-start total" style="width: 15%;" id="total_p">0</td>
+                                    <td style="width: 5%;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade  bd-example-modal-lg" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered  modal-lg" >
+            <div class="modal-content" style="background-color: rgba(0, 5.000000176951289, 20.000000707805157, 1);">
+                <div class="modal-body">
+
+                    <div class="row align-items-center">
+                        <!--E-mail-->                                      
+                            <label class="Revise_txt text-center">請選擇要結帳的商品<label/>                     
+                    </div>
+
+                    <div style="height: 20px;"></div>
+                    <div class="row">
+                        
+                        <input type="submit" class="finish text-center" id="model_button" value="確認" >
+                    
+                        <!-- <button type="button" class="finish text-center" data-bs-dismiss="modal">Finish</button> -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
+    style="min-height: 200px;">
+
+    <div id="liveToast" class="toast bg-success" role="alert" aria-live="assertive" aria-atomic="true"
+      data-bs-delay="2000">
+      <div class="toast-body " id="toast-body">
+        商品已更新
+      </div>
+    </div>
+    
+    {% if count != 0 %}
+    <div id="buy_button">
+        
+    </div>
+    {% else %}
+    <div class="text-light">
+      購物車是空的
+    </div>
+    {% endif %}
+  </div>
+  </form>
+</body>
+<script>
+    if (document.addEventListener) {
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted || performance.getEntriesByType("navigation")[0].type === 'back_forward') {
+                location.reload();
+
+            }
+        },
+        false);
+    }
+</script>
+<script>
+    var true_count=0
+    $("#check_all").on("click", function() {
+        var obj = document.getElementsByClassName("s_chk")
+        var count=0
+        var c=document.getElementById('count')
+        var t=document.getElementById('total_p')
+        let price=0
+        let state
+        if(this.checked==true)
+        {           
+            count=obj.length
+            for(var k in obj){
+            obj[k].checked=true
+            if(obj[k].value!=undefined)
+            price+=parseInt(obj[k].value)      
+            }      
+            state='true' 
+            $('#buy_button').html(`<a href="{% url 'check_out' %}" id="buy"><div id="BUY" type="button"  style="width:80px ;height:60px;"><img style="width:40px ;height:40px;" src="{% static 'images/home_imag/buy.png' %}" ></div></a>`)      
+        }else{
+            for(var k in obj){
+            obj[k].checked=false     
+            }
+            state='false'
+            $('#buy_button').html("")
+        }
+        c.innerText=count
+        t.innerText=price
+        
+        $.ajax({
+        url: "{% url 'shopping_cart' %}",
+        data: {
+          ch:'all',
+          st:state
+        },                           
+        type:"POST",
+        dataType:'json',
+
+        success: function(message){
+            t.innerText=message['sum']
+        },
+
+        error:   function(jqXHR, textStatus, errorThrown){ 
+           
+        }
+    });
+  });
+
+  $(".s_chk").on("click", function() {
+    let c_a=document.getElementById('check_all')
+    var t=document.getElementById('total_p')
+    let price=parseInt(t.innerText)
+    let c=document.getElementById('count')
+    let count=parseInt(c.innerText)
+    let s=document.getElementsByClassName('s_chk') 
+    let state
+    c_a.checked=false
+    if(this.checked==true){
+        price+=parseInt(this.value)
+        count+=1
+        state='true'
+        $('#buy_button').html(`<a href="{% url 'check_out' %}" id="buy"><div id="BUY" type="button"  style="width:80px ;height:60px;"><img style="width:40px ;height:40px;" src="{% static 'images/home_imag/buy.png' %}" ></div></a>`)
+    }else{
+        price-=parseInt(this.value)
+        count-=1
+        state='false'
+        $('#buy_button').html('')
+        for(var k in s){
+            if(s[k].checked==true & s[k].value!=undefined){
+                console.log('a')
+                $('#buy_button').html(`<div id="BUY" type="button"  style="width:80px ;height:60px;"><a href="{% url 'check_out' %}" id="buy"><img style="width:40px ;height:40px;" src="{% static 'images/home_imag/buy.png' %}" ></a></div>`)
+            }
+        }  
+       
+    }
+    if(count==s.length){
+        c_a.checked=true
+    }
+    c.innerText=count
+    t.innerText=price
+    $.ajax({
+        url: "{% url 'shopping_cart' %}",
+        data: {
+          id:this.id,
+          ch:'one',
+          st:state
+        },                           
+        type:"POST",
+        dataType:'json',
+
+        success: function(message){
+            t.innerText=message['sum']
+        },
+
+        error:   function(jqXHR, textStatus, errorThrown){ 
+           
+        }
+    });
+  });
+  $("#q").on("click", function() {
+    var obj = document.getElementsByClassName("s_chk");
+    var check_val = [];
+    let c=document.getElementById('count')
+    const exampleModal = document.getElementById('exampleModal')
+    const modellabel=exampleModal.querySelector('.modal-body label')
+    if(c.innerText==0){
+    modellabel.textContent='請選擇要結帳的商品'
+    $("#exampleModal").modal("show");
+    event.preventDefault()
+    }else{
+        window.location.replace("{% url 'check_out' %}")
+    }
+  });
+  $(".select_op").on("change", function() {
+    $.ajax({
+        url: "{% url 'shopping_cart' %}",
+        data: {
+          id:this.id,
+          select_value:this.value,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },                           
+        type:"POST",
+        dataType:'json',
+
+        success: function(message){
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)         
+
+          alert('更改成功', 'success')    
+          toast.show()
+        },
+
+        error:   function(jqXHR, textStatus, errorThrown){ 
+            document.getElementById("message").innerHTML=errorThrown; 
+        }
+    });
+  });
+  $(".counts").on("click", function() {
+    $.ajax({
+        url: "{% url 'shopping_cart' %}",
+        data: {
+          id:this.id,
+          input_value:this.value,
+          data:$('#text_'+this.id).val()
+        },                           
+        type:"POST",
+        dataType:'json',
+        success: function(message){
+          const input_text=document.getElementById(message['id'])
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          const toastBody = document.getElementById("toast-body")
+          var t=document.getElementById('total_p')
+          t.innerText=message['sum']
+          console.log(message['sum_id'])
+          $(`#${message['sum_id']}_sum`).text(message['total'])
+          toastBody.innerText="商品已更新"
+          toastLiveExample.className="toast bg-success"         
+            
+          input_text.value=message['test'] 
+          // alert('更改成功', 'success')    
+          toast.show()
+        },
+
+        error:   function(jqXHR, textStatus, errorThrown){ 
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          const toastBody = document.getElementById("toast-body")
+          toastLiveExample.className="toast bg-danger"
+          toastBody.innerText="輸入值只能是數字"
+          toast.show()
+        }
+    });
+  });
+  $(".text").on("change", function() {
+    console.log('a')
+    $.ajax({
+        url: "{% url 'shopping_cart' %}",
+        data: {
+          id:this.id.slice(5),
+          input_value:'text',
+          data:this.value
+        },                           
+        type:"POST",
+        dataType:'json',
+
+        success: function(message){
+          const input_text=document.getElementById(message['id'])
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          const toastBody = document.getElementById("toast-body")
+          toastBody.innerText="商品已更新"
+          toastLiveExample.className="toast bg-success"     
+          input_text.value=message['test']         
+          $(`#${message['sum_id']}_sum`).text(message['total'])
+          toast.show()
+        },
+
+        error:   function(jqXHR, textStatus, errorThrown){ 
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          const toastBody = document.getElementById("toast-body")
+          toastBody.innerText="輸入值只能是數字"
+          toastLiveExample.className="toast bg-danger"
+          toast.show()
+        }
+    });
+  });
+  $(document).on("keypress", "form", function (e) {
+    var code = e.keyCode || e.which;
+    if (code == 13) {
+        e.preventDefault();
+        return false;
+    }
+});
+</script>
+</html>

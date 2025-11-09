@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block title %}
+{{ pk }}
+{% endblock %}
+{% block content %}
+{% load my_tags %}
+<style>
+  .self-search{
+      background-image: url("{% static 'images/home_imag/search_background.png' %}");
+  }
+</style>
+<div class="container-head text-center container-fluid">
+  <!-- text-center 水平置中 -->
+  <div class="row">
+    <div class="col-sm-2">
+      <!-- col-sm-X 依照畫面縮放排版 -->
+      <a href="{% url 'home' %}"><img type="button" id="logo" src="{% static 'images/home_imag/logo.png' %}"></a>
+      <!--logo-->
+    </div>
+    <div class="col-sm-8">
+    </div>
+    <div class="col-sm-2 d-flex align-items-center">
+      <!-- align-items-center 垂直置中 -->
+
+      <div>
+        <a href="{% url 'shopping_cart' %}"><img type="button" id="shopping_icon" class="icon position-relative"
+            src="{% static 'images/home_imag/shopping_cart_icon.png' %}"></a>
+        <!--購物車button-->
+        {% if request.user.is_authenticated %}
+        <span class="position-absolute  translate-middle shopping_much_bg rounded-pill" id="shopping_cart_count">
+            {{ shopping_cart_count }}
+        </span>
+        {% endif %}
+      </div>
+
+      <p style="padding:20px;"></p>
+      {% if request.user.is_authenticated %}
+      <div class="dropdown">
+        <img type="button" class="icon" src="{% static 'images/home_imag/member_icon.png' %}" id="member_centre"
+          data-bs-toggle="dropdown" aria-expanded="false">
+        <!--會員與登入button-->
+        <ul class="dropdown-menu dropdown-menu-end" style="background-color:#1c2f4d; border-radius: 0.5rem;"
+          aria-labelledby="member_centre">
+
+          <!--購買紀錄-->
+          <li><span type="button" class="purchase_record "
+              onclick="javascript:location.href='../purchase_record'">購買紀錄</span></li>
+
+          <!--會員資料-->
+          <li><a href="{% url 'member_profile' %}" class="text-decoration-none"><span type="button" class="member_profile">會員資料</span></a>
+          </li>
+
+          <!--我的最愛-->
+          <!-- <li><span type ="button"class="saved" onclick="javascript:location.href='../saved'">Saved</span></li> -->
+          <li><a href="{% url 'tracking_list' %}" class="text-decoration-none"><span type ="button"class="saved">追蹤清單</span></a></li>
+
+          <!--更改密碼-->
+          <li><a href="{% url 'password_reset' %}" class="text-decoration-none"><span type="button" class="change_password">更改密碼</span></a></li>
+
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <!--登出-->
+          <li><span type="button" class="sign_out"><a href="{% url 'logout' %}" class="text-decoration-none">登出</a></span></li>
+
+        </ul>
+      </div>
+      {% else %}
+      <a href="{% url 'login1' %}"><img type="button" class="icon" src="{% static 'images/home_imag/member_icon.png' %}"
+          id="member_centre"></a>
+      {% endif %}
+    </div>
+  </div>
+
+
+  <!-- <img class="separate_line" src="{% static 'images/separate_line.png' %}"> -->
+
+  <div class="row">
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-6  d-flex align-items-center">
+      <input type="search" class="self-search" placeholder="Search" aria-label="Search">
+      <!--搜尋input-->
+    </div>
+    <div class="col-sm-1 rounded float-start">
+      <img class="icon" src="{% static 'images/home_imag/search_img.png' %}">
+      <!--搜尋button-->
+    </div>
+    <div class="col-sm-2">
+
+    </div>
+  </div>
+
+  <!--熱門搜尋-->
+
+  <div class="container d-flex justify-content-center">
+    <ul class="nav me-auto">
+      <li class="nav-item" style="padding: 10px;"><a href="#" style="color:#5CAEC0;">#熱門關鍵字</a></li>
+    </ul>
+  </div>
+
+  <!--分類-->
+
+  <div class="d-flex justify-content-center">
+    <ul class="nav nav-pills">
+      <li class="nav-item"><a href="{% url 'category' first_ce.category %}" class="nav-link" style="color:#56E096;">{{ first_ce.category }}</a></li>
+      {% for i in category %}
+      <img class="category-line" src="{% static 'images/home_imag/2.png' %}">
+      <li class="nav-item"><a href="{% url 'category' i.category %}" class="nav-link" style="color:#59C7AB;">{{ i.category }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <br><br>
+  {% for i in pd%}
+  <div class="container">
+  <div class="row text-start">
+    <div class="col-12 col-mb-12 col-lg-6 col-sm-12 ">
+      <a href="{% url 'product' i.id %}"><img src="{% static  i.product_name|image %}" class="" alt="" style="width:500px;"></a>
+    </div>
+    <div class="col-12 col-mb-12 col-lg-6 col-sm-12 col-xs-12">
+      <div class="text-white">
+        產品名稱：{{ i.product_name }}
+      </div>
+      
+      <br><br>
+      <div class="text-white">
+        <!-- 產品描述：{{ i.describe }} -->
+      </div>
+      <br><br>
+      <!-- <a href="{{ details }}" target="_blank">詳細資料</a> -->
+      <br><br>
+      <form method="post">
+        {% csrf_token %}
+      <input type="button" value="加入購物車" class="add_product btn btn-outline-primary text-white" id="{{ i.id }}">
+      
+      <!-- <input type="button" readonly="readonly" value="已加入追蹤清單" class="btn btn-outline-primary text-white"> -->
+      <!-- <label class="text-light">已加入追蹤清單</label> -->
+      
+      <!-- <input type="button" value="加入追蹤清單" class="add_tl btn btn-outline-primary text-white" id="{{ i.id }}" onclick="location.reload();"> -->
+      
+      </form>
+    </div>
+  </div>
+  {% endfor %}  
+</div>
+</div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3 ">
+  <div id="liveToast" class="toast bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body text-light" id="toast-body">
+      已加入購物車
+    </div>
+  </div>
+</div>
+<script>
+  // 新增檔案
+  $(".add_product").on("click", function() {
+    console.log('a')
+    $.ajax({
+        url: "{% url 'add_product' %}",
+        data: {
+          pk:this.id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },                           
+        type:"POST",
+        dataType:'json',
+
+        success: function(message){
+          const scc=document.getElementById('shopping_cart_count')
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          const toastBody = document.getElementById("toast-body")
+          scc.innerText=message['count']
+          toastLiveExample.className="toast bg-success"
+          toastBody.innerText="已加入購物車"         
+              
+          toast.show()
+        },
+        error:   function(jqXHR, textStatus, errorThrown){ 
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          const toastBody = document.getElementById("toast-body")
+          toastLiveExample.className="toast bg-danger"
+          toastBody.innerText="登入加入購物車"
+          toast.show()
+        }
+    });
+  });
+  $(".add_tl").on("click", function() {
+    console.log('a')
+    $.ajax({
+        url: "{% url 'add_tl' %}",
+        data: {
+          pk:this.id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },                           
+        type:"POST",
+        dataType:'json',
+
+        success: function(message){
+          const scc=document.getElementById('shopping_cart_count')
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          const toastBody = document.getElementById("toast-body")
+          scc.innerText=message['count']
+          toastLiveExample.className="toast bg-success"
+          toastBody.innerText="已加入追蹤清單"         
+             
+          toast.show()
+        },
+        error:   function(jqXHR, textStatus, errorThrown){ 
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          const toastBody = document.getElementById("toast-body")
+          toastLiveExample.className="toast bg-danger"
+          toastBody.innerText="登入加入追蹤清單"
+          toast.show()
+        }
+    });
+  });
+</script>
+{% endblock %}

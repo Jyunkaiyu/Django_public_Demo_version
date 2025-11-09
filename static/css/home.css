@@ -1,0 +1,499 @@
+/* ===== 基礎容器設定 ===== */
+.container-head {
+    background-color: #000514;
+}
+
+.head {
+    position: fixed;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    background-color: hsla(225, 100%, 4%, 0.8);
+    z-index: 9999;
+}
+
+/* ===== Logo 和圖示 ===== */
+#logo {
+    width: 180px;
+    height: 120px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* ===== 購物車數量標籤 ===== */
+.shopping_much_bg {
+    padding: 0.35em 0.65em;
+    font-size: .75em;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(89, 199, 171, 1);
+    font-family: Coda;
+    text-align: center;
+    white-space: nowrap;
+    background-color: rgba(86, 224, 150, 0.1);
+}
+
+/* ===== 搜尋框 ===== */
+.self-search {
+    padding: 15px;
+    width: 100%;
+    height: 40px;
+    font-family: Coda;
+    background-color: #ffffffd5;
+    border: 0;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    padding-right: 10px;
+}
+
+/* ===== 字體設定 ===== */
+.test-project-font {
+    font-family: 'Noto Sans TC', sans-serif;
+    color: #5CAEC0;
+}
+
+#no {
+    width: 100%;
+    height: 100%;
+}
+
+.discount-icon {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* ===== 會員選單樣式 ===== */
+.purchase_record {
+    padding: 0.25rem 1rem;
+    color: rgba(95, 149, 213, 1);
+    font-family: Coda;
+    font-size: 16px;
+}
+
+.member_profile {
+    padding: 0.25rem 1rem;
+    color: rgba(92, 174, 192, 1);
+    font-family: Coda;
+    font-size: 16px;
+}
+
+.saved {
+    padding: 0.25rem 1rem;
+    color: rgba(89, 199, 171, 1);
+    font-family: Coda;
+    font-size: 16px;
+}
+
+.sign_out {
+    padding: 0.25rem 1rem;
+    color: rgba(243, 67, 54, 1);
+    font-family: Coda;
+    font-size: 16px;
+}
+
+.change_password {
+    padding: 0.25rem 1rem;
+    color: #56E096;
+    font-family: Coda;
+    font-size: 15px;
+}
+
+#discount-txt {
+    font-family: Coda;
+    font-size: 32pt;
+    color: #5CAEC0;
+}
+
+/* ===== 響應式設計 ===== */
+@media (max-width:990px) {
+    .img_hdn {
+        display: none
+    }
+}
+
+@media (min-width: 0px) {
+    .sm-hd {
+        visibility: hidden;
+    }
+}
+
+@media (min-width: 850px) {
+    .lg-hd {
+        visibility: visible;
+    }
+}
+
+/* ===== 分類區域 ===== */
+.div_categorie {
+    background-color: #19A5B7;
+    padding: 40px 0;
+}
+
+ul.categories {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li.categorie {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: inherit;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    transition: .5s transform ease-in-out;
+}
+
+figure.categorie {
+    max-height: 200px;
+    width: 25%;
+    margin: 0;
+    text-align: center;
+}
+
+img.categorie {
+    max-height: 200px;
+    width: 100%;
+    min-width: 150px;
+    min-height: 200px;
+    object-fit: contain;
+}
+
+p.categorie {
+    color: #ffffffc4;
+    font-family: Coda;
+    font-size: 18pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0 0 0;
+}
+
+/* li 設定物件位置 */
+.categorie:nth-of-type(1) {
+    left: 0%;
+}
+
+.categorie:nth-of-type(2) {
+    left: 25%;
+}
+
+.categorie:nth-of-type(3) {
+    left: 50%;
+}
+
+.categorie:nth-of-type(4) {
+    left: 75%;
+}
+
+.categorie:nth-of-type(5) {
+    left: 100%;
+}
+
+.categorie:nth-of-type(6) {
+    left: 125%;
+}
+
+/* 左右 button style */
+.left_right_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    font-size: 32px;
+    background-color: #eeeeee;
+    border: 0;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.left_right_btn:hover {
+    background-color: #56E096;
+    transform: scale(1.1);
+}
+
+/* button 位置 */
+.btn_50 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== 標題樣式 ===== */
+.title {
+    color: #19A5B7;
+    font-family: Coda;
+    font-size: 28pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== 熱銷商品區域 ===== */
+.top_com {
+    background-color: #19A5B7;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 15px;
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.top_com:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(25, 165, 183, 0.4);
+}
+
+/* 商品我的最愛 */
+.top_save_icon {
+    width: 30px;
+    height: 30px;
+    margin: 20px 20px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.top_save_icon:hover {
+    transform: scale(1.2);
+}
+
+/* 商品圖片 */
+.com_img {
+    width: 100%;
+    object-fit: contain;
+    height: 180px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+@media (max-width: 1000px) {
+    .com_img {
+        height: 140px;
+    }
+}
+
+@media (max-width: 700px) {
+    .com_img {
+        height: 100px;
+    }
+}
+
+/* 商品名稱 */
+.com_name {
+    color: #ffffff;
+    font-family: Coda;
+    font-size: 20pt;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 商品資訊 */
+.com_txt {
+    font-family: Coda;
+    font-size: 16pt;
+    color: #fff;
+    display: inline;
+}
+
+/* ===== 廣告區域 ===== */
+.con {
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+div.box {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: inherit;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+ul.slides {
+    position: relative;
+    width: 100%;
+    min-height: 150px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #000514;
+    overflow: hidden;
+}
+
+li.slide {
+    width: 25%;
+    height: inherit;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .6s transform ease-in-out;
+    cursor: pointer;
+}
+
+li.slide:hover {
+    transform: scale(1.05);
+}
+
+img.slide {
+    height: 100%;
+    border-radius: 8px;
+    transition: border 0.3s;
+}
+
+.slide:nth-of-type(1) {
+    left: 0%;
+}
+
+.slide:nth-of-type(2) {
+    left: 25%;
+}
+
+.slide:nth-of-type(3) {
+    left: 50%;
+}
+
+.slide:nth-of-type(4) {
+    left: 75%;
+}
+
+.slide:nth-of-type(5) {
+    left: 100%;
+}
+
+.slide:nth-of-type(6) {
+    left: 125%;
+}
+
+/* 圖片 radio 按鈕 */
+input[type="radio"] {
+    position: relative;
+    z-index: 100;
+    display: none;
+}
+
+.controls-visible {
+    position: absolute;
+    width: 100%;
+    bottom: 12px;
+    text-align: center;
+}
+
+.controls-visible label {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 50%;
+    margin: 0 3px;
+    border: 2px solid #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.controls-visible label:hover {
+    background-color: #56E096;
+}
+
+.slides input[type="radio"]:nth-of-type(1):checked~.controls-visible label:nth-of-type(1) {
+    background-color: #333;
+}
+
+.slides input[type="radio"]:nth-of-type(2):checked~.controls-visible label:nth-of-type(2) {
+    background-color: #333;
+}
+
+.slides input[type="radio"]:nth-of-type(3):checked~.controls-visible label:nth-of-type(3) {
+    background-color: #333;
+}
+
+.slides input[type="radio"]:nth-of-type(1):checked~.slide {
+    transform: translatex(0%);
+}
+
+.slides input[type="radio"]:nth-of-type(2):checked~.slide {
+    transform: translatex(-100%);
+}
+
+.slides input[type="radio"]:nth-of-type(3):checked~.slide {
+    transform: translatex(-200%);
+}
+
+/* ===== CPU Rank 浮動按鈕 ===== */
+.cpurank_css {
+    color: #56E096;
+    font-family: Coda;
+    text-decoration: none;
+}
+
+#cpurank {
+    position: fixed;
+    right: -150px;
+    bottom: 150px;
+    background: #1c2f4d;
+    padding: 10px 20px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    transition-duration: 1.2s;
+    z-index: 999;
+}
+
+#cpurank:hover {
+    right: 0px;
+}
+
+a:hover {
+    color: gray;
+}
+
+/* ===== Bootstrap 覆寫 ===== */
+.carousel-inner {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.carousel-indicators button.active {
+    background-color: #19A5B7;
+}
+
+/* ===== 額外優化 ===== */
+.text-decoration-none {
+    text-decoration: none !important;
+}
+
+.text-decoration-none:hover {
+    text-decoration: none !important;
+}

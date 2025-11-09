@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% load static %}
+  <link rel="stylesheet" href="/static/plugins/bootstrap-5.2.0-beta1-dist/css/bootstrap.css" />
+  <script type="text/javascript"
+    src="{% static  'plugins/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js' %}"></script>
+  
+</head>
+
+<body>
+  <form method="post" action="">
+  <div class="container-fluid h-100  text-dark">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+        
+          {% csrf_token %}
+          <div class="row text-center">
+            <div class="col align-self-center">
+              <h1>個人資料</h1>
+            </div>
+          </div>
+            {% for field in form %}
+            <div class="row align-items-center">
+            <div class="col-2"></div>
+            <div class="form-floating col-8">
+              {{ field }}
+              <label for="{{ field.label }}">{{ field.label }}</label>             
+            </div>
+            <div class="col-2 text-center"><input type="button" value="編輯" class="btn btn-outline-primary edit"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{ field.auto_id }}"></div>
+            </div>
+            <br>
+            {% endfor %}
+            <div class="row text-center">
+              <div class="col align-self-center">
+                <input type="submit" class="btn btn-outline-primary" value="更改" name="confirm"/>
+              </div>
+              <div class="col align-self-center">
+                <a href="{% url 'index' %}" class="btn btn-outline-primary">取消</a>
+              </div>
+            </div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New message to @fat</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+          {% csrf_token %}
+        <div class="modal-body">
+          
+            
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label" >Recipient:</label>
+              <input type="text" class="form-control" id="recipient-name" name="a">
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+          
+  
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+          <input type="submit" class="btn btn-primary" value="確認" >
+          <!-- <button type="button" class="btn btn-primary" id="confirm">確認</button> -->
+         
+        </div>
+     
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row text-center">
+  <div class="col align-self-start">
+    {% if form.errors %}
+    {% for field in form %}
+    {% for error in field.errors %}
+    <div class=”alert alert-danger”>
+      <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+    <div class=”alert alert-danger”>
+      <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>
+</body>
+<script type="text/javascript"
+src="{% static  'js/jquery-3.6.0.min.js' %}"></script>
+<script>
+  // 資料更新
+  $( document ).ready(function() {
+    const firstname1=document.getElementById('id_first_name')
+    const lastname1=document.getElementById('id_last_name')
+    const email1=document.getElementById('id_email')
+    firstname1.value='{{ first_name }}'
+    lastname1.value='{{ last_name }}'
+    email1.value='{{ email }}'
+  });
+  $('.edit').on('click',function(){
+    // const myModalEl = document.getElementById('exampleModal')
+    // if (this.id=='1'){
+    //   $('#id_username').prop('readonly',false)
+    // }else{
+    //   $('#id_email').prop('readonly',false)
+    // }
+  })
+  $('#confirm').on('click',function(){
+    // $('#exampleModal').prop('class','modal fade')
+    // $('#exampleModal').prop('aria-hidden',false)
+  })
+  const exampleModal = document.getElementById('exampleModal')
+  if (exampleModal) {
+    exampleModal.addEventListener('show.bs.modal', event => {
+      // Button that triggered the modal
+      const button = event.relatedTarget
+      // Extract info from data-bs-* attributes
+      const recipient = button.getAttribute('data-bs-whatever')
+      console.log(recipient)
+      // Update the modal's content.
+      const modellabel=exampleModal.querySelector('.modal-body label')
+      const modalTitle = exampleModal.querySelector('.modal-title')
+      const modalBodyInput = exampleModal.querySelector('.modal-body input')
+      const inputvalue=document.getElementById(recipient)
+      modalBodyInput.name=`new_${recipient.substr(3)}`
+      modellabel.textContent=`${recipient.substr(3)}:`
+      modalTitle.textContent = `${recipient.substr(3)}`
+      if (recipient.substr(3)=='email'){
+        modalBodyInput.autocomplete='email'
+      }
+      modalBodyInput.value = inputvalue.value
+    })
+  }
+</script>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+<html>
+
+<head>
+    {% load static%}
+    {% load my_tags %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/home_imag/favicon.ico' %}" type="image/x-icon" />
+    {% if q %}
+    <title>{{ q }} - 電到創商</title>
+    {% else %}
+    <title>電到創商</title>
+    {% endif %}
+    
+    <!-- 將我們需要的google font字體連接 英文 -->
+    <link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+
+    <!-- 將我們需要的google font字體連接 中文 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="{% static  'js/jquery-3.6.0.min.js' %}"></script>
+    <!-- 與css連接 -->
+    <!-- <link rel="stylesheet" href="{% static 'css/home.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/home.css' %}"> -->
+    <!-- 連接bootstrap相關資源 -->
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static  'js/jquery-3.6.0.min.js' %}"></script>
+
+
+</head>
+
+<script type="text/javascript">
+
+    function ch_click(i) {
+        if (i == 1) {
+            x = 1;
+            y = 2;
+        }
+        else {
+            x = 2;
+            y = 1;
+        }
+        document.getElementById("ch" + x + "-tab").src = "/static/images/home_imag/ch" + x + "_on.png";
+        document.getElementById("ch" + y + "-tab").src = "/static/images/home_imag/ch" + y + ".png";
+    }
+
+    function mouse_on(x) {
+        x.style.backgroundColor = "#70a5ac6b";
+    }
+
+    function mouse_off(x) {
+        x.style.backgroundColor = "#19a5b750";
+    }
+
+
+</script>
+
+<body class="container-head">
+
+    <div class="container-fluid">
+        <!-- text-center 水平置中 -->
+
+
+        <!--head-->
+        <div class="row justify-content-around head">
+            <div class="row col-10">
+                <!-- <div style="padding: 10px;">
+            </div> -->
+                <div class="col-lg-2 col-sm-3 col-5 text-right">
+                    <!-- col-sm-X 依照畫面縮放排版 -->
+                    <a href="{% url 'home' %}"><img type="button" id="logo"
+                            src="{% static 'images/home_imag/logo.svg' %}"></a>
+                    <!--logo-->
+                </div>
+
+                <div class="col-lg-8 col-sm-6 col-2  d-flex align-items-center">
+                    <div class="container-fluid ">
+                        <form class="row" method="get">
+                            <div class="col-lg-1 col-sm-1 col-1"></div>
+                            <div class="col-lg-9 col-sm-9 col-9 d-flex align-items-center">
+
+                                <input type="search" name="q" class="self-search" placeholder="Search"
+                                    aria-label="Search" value="{{ q }}" onfocus="this.select()">
+                                <!--搜尋input-->
+                            </div>
+                            <div class="col-lg-1 col-sm-1 col-1 rounded float-start">
+                                <button type="submit" class="btn btn-bd-primary"><img
+                                        src="{% static 'images/home_imag/search_img.png' %}" class="icon"></button>
+                                <!-- <img class="icon" src="{% static 'images/home_imag/search_img.png' %}"> -->
+                                <!--搜尋button-->
+                            </div>
+                            <div class="col-lg-1 col-sm-1 col-1"></div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-sm-3 col-5  d-flex align-items-center justify-content-around">
+                    <!-- align-items-center 垂直置中 -->
+
+                    <div>
+                        <a href="{% url 'shopping_cart' %}">
+                            <img type="button" id="shopping_icon" class="icon position-relative"
+                                src="{% static 'images/home_imag/shopping_cart_icon.png' %}">
+                        </a>
+                        <!--購物車button-->
+                        {% if request.user.is_authenticated %}
+                        <span class="position-absolute  translate-middle shopping_much_bg rounded-pill">
+                            {{ shopping_cart_count }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    <!-- 
+                    <p style="padding:20px;"></p> -->
+                    {% if request.user.is_authenticated %}
+                    <div class="dropdown">
+                        <!--會員與登入button-->
+                        <img type="button" class="icon" src="{% static 'images/home_imag/mer.png' %}"
+                            id="member_centre" data-bs-toggle="dropdown" aria-expanded="false">
+                        <ul class="dropdown-menu dropdown-menu-end"
+                            style="background-color:#1c2f4d; border-radius: 0.5rem;" aria-labelledby="member_centre">
+
+                            <!--購買紀錄-->
+                            <li><a href="{% url 'purchase_record' %}" class="text-decoration-none"><span type="button"
+                                        class="purchase_record ">購買紀錄</span></a></li>
+
+                            <!--會員資料-->
+                            <li><a href="{% url 'member_profile' %}" class="text-decoration-none"><span type="button"
+                                        class="member_profile">會員資料</span></a></li>
+
+                            <!--我的最愛-->
+                            <!-- <li><span type ="button"class="saved" onclick="javascript:location.href='../saved'">Saved</span></li> -->
+                            <li><a href="{% url 'tracking_list' %}" class="text-decoration-none"><span type="button"
+                                        class="saved">追蹤清單</span></a></li>
+                            <!-- {% if request.user.username == 'admin' %}
+                            <li><a href="{% url 'admin_order_tracking' %}" class="text-decoration-none"><span
+                                        type="button" class="saved">訂單查詢</span></a></li>
+                            {% else %}
+                            <li><a href="{% url 'user_order_tracking' %}" class="text-decoration-none"><span
+                                        type="button" class="saved">訂單查詢</span></a></li>
+
+                            {% endif %} -->
+
+                            <!--更改密碼-->
+                            <li><a href="{% url 'password_reset' %}" class="text-decoration-none"><span type="button"
+                                        class="change_password">更改密碼</span></a></li>
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+                            <!--登出-->
+                            <li><span type="button" class="sign_out"><a href="{% url 'logout' %}"
+                                        class="text-decoration-none">登出</a></span></li>
+
+                        </ul>
+                    </div>
+                    {% else %}
+                    <a href="{% url 'login1' %}"><img type="button" class="icon"
+                            src="{% static 'images/home_imag/member_icon.png' %}" id="member_centre"></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        <div style="padding: 60px;"></div>
+        <div class="row justify-content-around ">
+            <div class="col">
+
+            </div>
+            <div class="col-9">
+                <div class="row justify-content-around ">
+                    <div class="col-3">
+                        <image style="width: 100%;" src="{% static 'images/recommend_AD_1.png' %}">
+                    </div>
+                    <div class="col-3">
+                        <image style="width: 100%;" src="{% static 'images/recommend_AD_2.png' %}">
+                    </div>
+                    <div class="col-3">
+                        <image style="width: 100%;" src="{% static 'images/recommend_AD_3.png' %}">
+                    </div>
+                    <div class="col-3">
+                        <image style="width: 100%;" src="{% static 'images/recommend_AD_4.png' %}">
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col">
+
+            </div>
+
+        </div>
+        <div style="padding: 20px;"></div>
+
+        <nav>
+            <div id="nav-tab" class="nav CH justify-content-around" role="tablist">
+                <img class="n-nav-link active ch_icon" id="ch1-tab" data-bs-toggle="tab" data-bs-target="#ch1"
+                    type="button" role="tab" aria-controls="ch1" src="{% static 'images/home_imag/ch1_on.png' %}"
+                    onclick="ch_click(1)">
+
+                <img class="n-nav-link ch_icon" id="ch2-tab" data-bs-toggle="tab" data-bs-target="#ch2" type="button"
+                    role="tab" aria-controls="ch2" src="{% static 'images/home_imag/ch2.png' %}" onclick="ch_click(2)">
+            </div>
+        </nav>
+
+        <div class="tab-content" id="nav-tabContent">
+
+            <div class="tab-pane fade show active" id="ch1" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                <div class="row justify-content-around">
+                    <!-- 邊界 -->
+                    <div class=" col">
+                    </div>
+                    <!-- 商品 -->
+                    <div class="col-9">
+                        <table class="table com_txt">
+                            <thead class="table_title">
+                                <tr>
+
+                                    <th scope="col" colspan="4" class="com_txt">
+                                        <!-- <div class="form-check ">
+
+                                        </div> -->
+                                    </th>
+
+
+                                    <th scope="col" class="com_txt"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="table_content">
+                                <!-- vertical-align:middle; 垂直置中 -->
+                                {% for i in pd %}
+                                <tr style="vertical-align:middle;" class="ch1_com_bg" onmouseenter=mouse_on(this)
+                                    onmouseleave=mouse_off(this)>
+
+                                    <!-- 商品圖片 -->
+                                    <td style="width: 20%;">
+                                        <a href="{% url 'product' i.id %}">
+                                            <image width="80%" src="{% static i.product_name|image %}">
+                                        </a>
+                                    </td>
+                                    <!-- 商品名稱 -->
+                                    <td class="com_name">{{ i.product_name }}</td>
+                                    <!-- 商品廠商 -->
+                                    <!-- <td class="text-center com_txt" style="width: 10%;">LIAN LI</td> -->
+                                    <!-- 商品資訊 -->
+                                    <td class="text-center com_txt" style="width: 30%;">{{ i.describe }}</td>
+                                    <!-- 商品單價 -->
+                                    <td class="text-center com_txt" style="width: 10%;">{{ i.price }}</td>
+                                    <!-- 我的最愛 -->
+                                    <td style="width: 5%;">
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            {% if i.id in tl %}
+                                            <img type="button" class="save_icon add_tl"
+                                                src="{% static 'images/home_imag/lightning_icon_save.png' %}"
+                                                id="{{ i.id }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="加入追蹤清單">
+                                            {% else %}
+                                            <img type="button" class="save_icon add_tl"
+                                                src="{% static 'images/home_imag/lightning_icon.png' %}"
+                                                id="{{ i.id }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="加入追蹤清單">
+                                            {% endif %}
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class=" col">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="tab-pane fade" id="ch2" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="container">
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col-11 row row-cols-4" style="height:100px ;">
+                            {% for i in pd %}
+                            <div class="col col-mb-3">
+                                <figure class="top_com">
+                                    <div style="padding: 20px;"></div>
+                                    <!-- 商品圖片 -->
+                                    <div class="text-center" onclick="javascript:location.href='../category1'">
+                                        <a href="{% url 'product' i.id %}">
+                                            <image width="80%" class="com_img" src="{% static i.product_name|image %}">
+                                        </a>
+                                    </div>
+                                    <!-- 我的最愛 -->
+                                    <div class="text-right">
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            {% if i.id in tl %}
+                                            <img type="button" class="save_icon add_tl"
+                                                src="{% static 'images/home_imag/lightning_icon_save.png' %}"
+                                                id="{{ i.id }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="加入追蹤清單">
+                                            {% else %}
+                                            <img type="button" class="save_icon add_tl"
+                                                src="{% static 'images/home_imag/lightning_icon.png' %}"
+                                                id="{{ i.id }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="加入追蹤清單">
+                                            {% endif %}
+                                        </form>
+                                    </div>
+                                </figure>
+                                <table style="width: 100%;" onclick="javascript:location.href='../category1'">
+                                    <!-- 商品名稱 -->
+                                    <tr>
+                                        <td colspan="2" class="com_name ">{{ i.product_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <!-- 商品種類 -->
+                                        <td>
+                                            <p class="com_txt">{{ i.category }}</p>
+                                        </td>
+                                        <!-- 商品價格 -->
+                                        <td class="text-end">
+                                            <p class="com_txt">{{ i.price }}</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+<script>
+    $(".add_tl").on("click", function() {
+    console.log(this.id)
+    $.ajax({
+        url: "{% url 'add_tl' %}",
+        data: {
+          pk:this.id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },                           
+        type:"POST",
+        dataType:'json',
+
+        success: function(message){
+            if(message['data'] == 'add'){
+              $(`#${message['pk']}`).attr('src',"{% static 'images/home_imag/lightning_icon_save.png' %}")  
+            }else{
+              $(`#${message['pk']}`).attr('src',"{% static 'images/home_imag/lightning_icon.png' %}") 
+            }        
+        },
+        error:   function(jqXHR, textStatus, errorThrown){ 
+
+        }
+    });
+  });
+</script>
+</html>

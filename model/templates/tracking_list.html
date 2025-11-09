@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+
+<head>
+    {% load static%}
+    {% load my_tags %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/home_imag/favicon.ico' %}" type="image/x-icon" />
+
+    <!-- 將我們需要的google font字體連接 英文 -->
+    <link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+
+    <!-- 將我們需要的google font字體連接 中文 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
+
+    <!-- 與css連接 -->
+    <link rel="stylesheet" href="{% static 'css/tracking_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    <!-- 連接bootstrap相關資源 -->
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+
+    <!-- 使用標籤 -->
+    
+    <title>追蹤清單</title>
+</head>
+
+<body class="container-head container-fluid" style="height: 100%;">
+    <div>
+      <div class="row  text-center">
+        <div class="col-1 ">
+          
+        </div>
+        <div class="col-2 text-left">
+          <a href="{% url 'home' %}"><img  type ="button" id="logo" src="{% static 'images/home_imag/logo.svg' %}" ></a>
+        </div>
+        <div class="col-2 d-flex text-left align-items-center">
+          <p class="Saved_txt"><b>追蹤清單</b></p>
+        </div>
+        <div class="col">
+        </div>
+      </div>  
+      
+      <!-- <div class="row  text-center">
+            <div class="col-sm-2 ">
+                <a href="{% url 'home' %}"><img type="button" id="logo" src="{% static 'images/home_imag/logo.svg' %}"></a>
+            </div>
+            <div class="col-sm-3 d-flex align-items-center">
+                <p class="Saved_txt">追蹤清單</p>
+            </div>
+            <div class="col-sm-7">
+            </div>
+        </div> -->
+
+        <div style="height: 80px;"></div>
+        <div class="container">
+            <div class="row row-cols-2 text-center">
+              
+              {% for product in tl %}
+              <div class="col col-mb-3">
+                <div class="row">
+                  <div class="col-0 col-lg-6 col-sm-0">
+                    <a href="{% url 'product' product.product_name.id %}"><image width="100%" class="img_hdn" src="{% static  product.product_name.product_name|image %}"></a>
+                  </div>
+                  <div class="col col-lg-6 col-sm-12">
+                    <div class="Saved_txt">
+                      {{ product.product_name.product_name }} 
+                    </div>
+                    <br>
+                    <div>
+                      <!-- url 'product' product.product_name.id  -->
+                      <!-- <a href="#" class="">詳細資料</a> -->
+                    </div>
+                    <br><br>
+                    <div class="row">
+                      <div class="Saved_txt col-8">
+                        $ {{ product.product_name.price }}
+                      </div>
+                      <div class="col-4">
+                        <!-- url 'delete_product' product.id -->
+                        <a href="{% url 'delete_tl' product.id %}" class="text-decoration-none">取消追蹤</a>
+                      </div>
+                    </div>
+                    <div class="input-group w-auto p-3 " class="a">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br><br>
+              {% endfor %}        
+        <div style="height: 100px;"></div>
+    </div>
+</body>
+
+</html>

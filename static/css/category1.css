@@ -1,0 +1,118 @@
+.container-head {
+
+    background-color: rgba(0, 5.000000176951289, 20.000000707805157, 1);
+}
+
+#logo {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.shopping_much_bg {
+    padding: 0.35em 0.65em;
+    font-size: .75em;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(89.00000229477882, 199.0000033378601, 171.00000500679016, 1);
+    font-family: Coda;
+    text-align: center;
+    white-space: nowrap;
+    background-color: rgba(86.00000247359276, 224.000001847744, 150.0000062584877, 0.10000000149011612);
+}
+
+
+.self-search {
+    width: 100%;
+    height: 40px;
+    font-family: Coda;
+    background-color: transparent;
+    border: 0;
+    background-image: url("{% static 'images/home_imag/search_background.png' %}");
+    background-size: 100% 100%;
+}
+
+.category-line {
+    width: 2px;
+    height: 30px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.test-project-font {
+    font-family: 'Noto Sans TC', sans-serif;
+    color: #5CAEC0;
+}
+
+
+.COMM_name {
+    font-size: 20pt;
+    color: #56E096;
+    font-family: Coda;
+}
+
+.COMM_desc {
+    font-size: 16spt;
+    color: white;
+    font-family: Coda;
+}
+
+.bg {
+    background-color: #1c2f4d;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.details {
+    color: rgba(95.00000193715096, 149.00000631809235, 213.00000250339508, 1);
+    font-family: Coda;
+    text-align: right;
+    font-size: 12pt;
+}
+
+.icon {
+    height: 35px;
+    width: 35px;
+}
+
+.n-col-sm-11 {
+    flex: 0 0 auto;
+    width: 80%;
+    height: 240px;
+}
+
+/* 加入購物車button */
+.input_cart {
+    color: #56E096;
+    background-color: rgba(86.00000247359276, 224.000001847744, 150.0000062584877, 0.10000000149011612);
+    border-color: #56E096;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}

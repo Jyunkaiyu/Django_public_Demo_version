@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+購買成功!!
+<br>
+您好，{{ user_name }}
+以下是訂購的商品
+<table border="1" class="table table-bordered">
+<tr>
+  <td>產品名稱</td>
+  <td>產品數量</td>
+  <td>價錢</td>
+</tr>
+{% for field in pd%}
+  <tr>
+    <td>{{ field.product_name.product_name }}</td>
+    <td>{{ field.counts }}</td>
+    <td>{% widthratio field.counts 1 field.product_name.price %}</td>
+  </tr>
+{% endfor %}
+</table>
+總計：${{ total }}
+</html>

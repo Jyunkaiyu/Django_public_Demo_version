@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+
+<head>
+    <!-- 使用標籤 -->
+    {% load static%}
+    {% load my_tags %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 將我們需要的google font字體連接 英文 -->
+    <link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+
+    <!-- 將我們需要的google font字體連接 中文 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <!-- 與css連接 -->
+    <link rel="stylesheet" href="{% static 'css/category1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    <!-- 連接bootstrap相關資源 -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Loads model-viewer for modern browsers -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+    <!-- Loads model-viewer for older browsers -->
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+    <title>產品資訊</title>
+</head>
+
+<body class="container-head ">
+    <div class="text-center container-fluid">
+        <!-- text-center 水平置中 -->
+
+        <!--head-->
+
+        <div class="row">
+            <div class="col-sm-2">
+                <!-- col-sm-X 依照畫面縮放排版 -->
+                <a href="{% url 'home' %}"><img type="button" id="logo"
+                        src="{% static 'images/home_imag/logo.svg' %}"></a>
+                <!--logo-->
+            </div>
+            <div class="col-sm-8">
+            </div>
+            <div class="col-sm-2 d-flex align-items-center">
+                <!-- align-items-center 垂直置中 -->
+
+                <div>
+                    <!--購物車button-->
+                    <a href="{% url 'shopping_cart' %}"><img type="button" id="shopping_icon"
+                            class="icon position-relative"
+                            src="{% static 'images/home_imag/shopping_cart_icon.png' %}"></a>
+                    {% if request.user.is_authenticated %}
+                    <span class="position-absolute  translate-middle shopping_much_bg rounded-pill"
+                        id="shopping_cart_count">
+                        {{ count }}
+                    </span>
+                    {% endif %}
+                </div>
+
+                <p style="padding:20px;"></p>
+
+                {% if request.user.is_authenticated %}
+                <div class="dropdown">
+                    <img type="button" class="icon" src="{% static 'images/home_imag/member_icon.png' %}"
+                        id="member_centre" data-bs-toggle="dropdown" aria-expanded="false">
+                    <!--會員與登入button-->
+                    <ul class="dropdown-menu dropdown-menu-end" style="background-color:#1c2f4d; border-radius: 0.5rem;"
+                        aria-labelledby="member_centre">
+
+                        <!--購買紀錄-->
+                        <li><a href="{% url 'purchase_record' %}" class="text-decoration-none"><span type="button"
+                                    class="purchase_record ">購買紀錄</span></a></li>
+
+                        <!--會員資料-->
+                        <li><a href="{% url 'member_profile' %}" class="text-decoration-none"><span type="button"
+                                    class="member_profile">會員資料</span></a></li>
+
+                        <!--我的最愛-->
+                        <!-- <li><span type ="button"class="saved" onclick="javascript:location.href='../saved'">Saved</span></li> -->
+                        <li><a href="{% url 'tracking_list' %}" class="text-decoration-none"><span type="button"
+                                    class="saved">追蹤清單</span></a></li>
+
+                        <!--更改密碼-->
+                        <li><a href="{% url 'password_reset' %}" class="text-decoration-none"><span type="button"
+                                    class="change_password">更改密碼</span></a></li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <!--登出-->
+                        <li><span type="button" class="sign_out"><a href="{% url 'logout' %}"
+                                    class="text-decoration-none">登出</a></span></li>
+
+                    </ul>
+                </div>
+                {% else %}
+                <a href="{% url 'login1' %}"><img type="button" class="icon"
+                        src="{% static 'images/home_imag/member_icon.png' %}" id="member_centre"></a>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <!-- <img class="separate_line" src="{% static 'images/separate_line.png' %}"> -->
+
+        <!-- <div class="row">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-6  d-flex align-items-center">
+                <input type="search" class="self-search" placeholder="Search" aria-label="Search">
+                <!--搜尋input-->
+        <!-- </div>
+            <div class="col-sm-1 rounded float-start">
+                <img class="icon" src="{% static 'images/home_imag/search_img.png' %}">
+                <!--搜尋button-->
+        <!-- </div>
+            <div class="col-sm-2">
+
+            </div> -->
+        <!-- </div> -->
+
+        <!--熱門搜尋-->
+        <!-- 
+        <div class="container d-flex justify-content-center">
+            <ul class="nav me-auto">
+                <li class="nav-item" style="padding: 10px;"><a href="#" style="color:#5CAEC0;">#熱門關鍵字</a></li>
+            </ul>
+        </div> -->
+
+        <!--分類-->
+
+        <!-- <div class="d-flex justify-content-center">
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="#" class="nav-link" style="color:#56E096;">#類別</a></li>
+                <img class="category-line" src="{% static 'images/home_imag/1.png' %}">
+                <li class="nav-item"><a href="#" class="nav-link" style="color:#59C7AB;">#類別</a></li>
+                <img class="category-line" src="{% static 'images/home_imag/2.png' %}">
+                <li class="nav-item"><a href="#" class="nav-link" style="color:#5CAEC0;">#類別</a></li>
+                <img class="category-line" src="{% static 'images/home_imag/3.png' %}">
+                <li class="nav-item"><a href="#" class="nav-link" style="color:#5F95D5;">#類別</a></li>
+                <img class="category-line" src="{% static 'images/home_imag/4.png' %}">
+                <li class="nav-item"><a href="#" class="nav-link" style="color:#627CEA;">#類別</a></li>
+            </ul>
+        </div> -->
+
+        <p style="padding:50px;"></p>
+
+        <div class="container">
+            <div class="row ">
+                <!-- 邊界 -->
+                <div class="col-0 co0-mb-0 col-lg-2 col-sm-0 "></div>
+                <!-- 圖片 -->
+                <div class="col-11 col-lg-5 col-sm-11 container">
+                    <div id="change">
+                        <img src="{% static  pd.product_name|image %}" alt="" style="width:500px;height: 281px;">
+                    </div>
+                    <br>
+                    <div class="row ">
+                        <span style="padding: 10px;"></span>
+                        <div class="col-2"></div>
+                        <!-- 切換2D3Dbutton -->
+                        <div class="col-3">
+                            <img type="button" id="2d" src="{% static 'images/home_imag/2d_icon.svg' %} "
+                                style="width: 60px; " data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-custom-class="custom-tooltip" data-bs-title="查看2D圖面">
+                        </div>
+                        <div class="col-2"></div>
+                        <div class="col-3">
+                            <img type="button" id="3d" src="{% static 'images/home_imag/3d_icon.svg' %} "
+                                style="width: 60px; " data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-custom-class="custom-tooltip" data-bs-title="查看3D模組">
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                </div>
+                <div class="n-col-11 col-lg-3 n-col-sm-11 " style="height: 350px ;">
+                    <div class="COMM_name position-absolute top-0 start-0">
+                        {{ pd.product_name }}
+                    </div>
+                    <br><br>
+                    <div class="COMM_desc position-absolute start-0">
+                        {{ pd.describe }}
+                    </div>
+                    <div class="position-absolute bottom-50 end-0">
+                        <a href="{{ details }}" target="_blank" style="text-decoration:none;" class="details">詳細資料</a>
+                    </div>
+                    <div class="position-absolute bottom-0 start-0">
+                        <form method="post">
+                            {% csrf_token %}
+                            <!-- 我的最愛button -->
+                            {% if pd.id in tl %}
+                            <!-- <input type="button" readonly="readonly" value="已加入追蹤清單" class="btn btn-outline-primary text-white"> -->
+                            <!-- <label class="text-light">已加入追蹤清單</label> -->
+                            <img type="button" class="icon add_tl"
+                                src="{% static 'images/home_imag/lightning_icon_save.png' %}" id="{{ pd.id }}"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="加入追蹤清單">
+                            {% else %}
+                            <img type="button" class="icon add_tl"
+                                src="{% static 'images/home_imag/lightning_icon.png' %}" id="{{ pd.id }}"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="加入追蹤清單">
+                            <!-- <input type="button" value="加入追蹤清單" class="add_tl btn btn-outline-primary text-white" id="{{ i.id }}" onclick="location.reload();"> -->
+                            {% endif %}
+                        </form>
+                    </div>
+                    <div class="position-absolute bottom-0 end-0">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="button" value="加入購物車" class="input_cart add_product" id="{{ pd.id }}">
+                        </form>
+                    </div>
+                </div>
+                <div class="col-0 co0-mb-0 col-lg-2 col-sm-0 "></div>
+
+
+                <div class="toast-container position-fixed bottom-0 end-0 p-3 ">
+                    <div id="liveToast" class="toast bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-body text-light" id="toast-body">
+                            已加入購物車
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br><br>
+
+
+
+
+    <div class="container-fluid" style="height: 100%;">
+
+
+        <div class="row justify-content-around">
+            <div class="col"></div>
+            <div class="col-10">
+                <form action="" method="Post">
+                    {% csrf_token %}
+
+                    <br>
+                    <input type="text" name="cpu_name1" readonly="readonly" value='{{ pd.product_name }}' id="cpu_name1"
+                        value size="33">
+                    <!-- <input name="cpu_name222" placeholder="輸入cpu2名稱" size="33"> -->
+                    <select id="com_2" name="cpu_name2" style="width: 25%;" class="com_2">
+                        <!-- <option selected>選擇比較型號</option> -->
+
+                        <option>Intel Core i5-12400</option>
+                        <option>AMD Ryzen 5 5600X</option>
+                        <option>Intel Core i7-12700F</option>
+                        <option>Intel Core i5-12400F</option>
+                        <option>AMD Ryzen 3 4100</option>
+                        <option>Intel Pentium Gold G6405</option>
+                        <option>AMD Ryzen 7 7700X</option>
+                        <option>AMD Ryzen 5 5600</option>
+                        <option>AMD Ryzen 5 5600G</option>
+                        <option>AMD Ryzen 7 5700X</option>
+                    </select>
+
+                    <input class="demand" type="submit" value="查詢">
+                </form>
+
+
+
+
+                <table class="table" width=800 style="color:white">
+                    <thead>
+                        <tr>
+                            <td align="center"></td>
+                            <td align="center">cpu1稱號</td>
+                            <!-- <th></th>
+                            <td align="center"></td> -->
+                            <th></th>
+                            <td align="center">cpu2稱號</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cpurank in unicpuranks %}
+                        <tr>
+                            <td align="center"></td>
+                            {%if cpurank.ansr == cpurank.cpuone %}
+                            <td align="center">{{ cpurank.cpuone}} <img src="{% static 'images/trophy.png' %}"
+                                    alt='imagename' width="50" height="50"></td>
+                            {%else%}
+                            <td align="center">{{ cpurank.cpuone}}</td>
+                            {%endif%}
+                            <!-- <td></td>
+                            <td align="center"></td> -->
+                            <td></td>
+                            {%if cpurank.ansr == cpurank.cputwo %}
+                            <td align="center">{{ cpurank.cputwo }} <img src="{% static 'images/trophy.png' %}"
+                                    alt='imagename' width="50" height="50"></td>
+                            {%else%}
+                            <td align="center">{{ cpurank.cputwo }}</td>
+                            {%endif%}
+                        <tr>
+
+                            <td align="center">跑分</td>
+                            {%if "+" in cpurank.nuans%}
+                            <td align="center">{{ cpurank.score_one}} <img src="{% static 'images/good.png' %}"
+                                    alt='imagename' width="25" height="25"></td>
+                            {% else %}
+                            <td align="center">{{ cpurank.score_one}}</td>
+                            {% endif %}
+
+                            <!-- <td></td>
+                            <td></td> -->
+                            <!-- {%if "+" in cpurank.nuans%}
+                            <td align="center" style = "color:green;">{{ cpurank.nuans}}</td>
+                            {% else %}
+                            <td align="center" style = "color:red;">{{ cpurank.nuans}}</td>
+                            {% endif %} -->
+                            <td></td>
+                            {%if "-" in cpurank.nuans%}
+                            <td align="center">{{ cpurank.score_two }} <img src="{% static 'images/good.png' %}"
+                                    alt='imagename' width="25" height="25"></td>
+                            {% else %}
+                            <td align="center">{{ cpurank.score_two }}</td>
+                            {% endif %}
+
+                        </tr>
+                        <tr>
+
+                            <td align="center">性價比</td>
+                            {%if "+" in cpurank.cpugvans%}
+                            <td align="center">{{ cpurank.cpugv}} <img src="{% static 'images/good.png' %}"
+                                    alt='imagename' width="25" height="25"></td>
+                            {%else%}
+                            <td align="center">{{ cpurank.cpugv}}</td>
+                            {%endif%}
+                            <!-- 
+                            <td></td>
+                            <td></td>
+                            {%if "+" in cpurank.cpugvans%}
+                            <td align="center" style = "color:green;">{{ cpurank.cpugvans}}</td>
+                            {% else %}
+                            <td align="center" style = "color:red;">{{ cpurank.cpugvans}}</td>
+                            {% endif %} -->
+                            <td></td>
+
+                            {%if "-" in cpurank.cpugvans%}
+                            <td align="center">{{ cpurank.cpugv_two}} <img src="{% static 'images/good.png' %}"
+                                    alt='imagename' width="25" height="25"></td>
+                            {%else%}
+                            <td align="center">{{ cpurank.cpugv_two}} </td>
+                            {% endif %}
+
+                        </tr>
+
+                        <tr>
+                            <td align="center">核心</td>
+                            {%if "+" in cpurank.cpucoreans%}
+                            <td align="center">{{ cpurank.cpucore}} <img src="{% static 'images/good.png' %}"
+                                    alt='imagename' width="25" height="25"></td>
+                            {%else%}
+                            <td align="center">{{ cpurank.cpucore}}</td>
+                            {%endif%}
+
+                            <!-- <td></td>
+                            <td></td> -->
+                            <!-- {%if "+" in cpurank.cpucoreans%}
+                            <td align="center" style = "color:green;">{{ cpurank.cpucoreans}}</td>
+                            {% else %}
+                            <td align="center" style = "color:red;">{{ cpurank.cpucoreans}}</td>
+                            {% endif %} -->
+                            <td></td>
+
+                            {%if "-" in cpurank.cpucoreans%}
+                            <td align="center">{{ cpurank.cpucore_two}} <img src="{% static 'images/good.png' %}"
+                                    alt='imagename' width="25" height="25"></td>
+                            {%else%}
+                            <td align="center">{{ cpurank.cpucore_two}}</td>
+                            {% endif %}
+                        </tr>
+
+                        <tr>
+                            <td align="center">時脈</td>
+                            {%if "+" in cpurank.clratans%}
+                            <td align="center">{{ cpurank.clrat}} <img src="{% static 'images/good.png' %}"
+                                    alt='imagename' width="25" height="25"></td>
+                            {%else%}
+                            <td align="center">{{ cpurank.clrat}}</td>
+                            {%endif%}
+
+                            <!-- <td></td>
+                            <td></td> -->
+                            <!-- {%if "+" in cpurank.clratans%}
+                            <td align="center" style = "color:green;">{{ cpurank.clratans}}</td>
+                            {% else %}
+                            <td align="center" style = "color:red;">{{ cpurank.clratans}}</td>
+                            {% endif %} -->
+
+                            <td></td>
+                            {%if "-" in cpurank.clratans%}
+                            <td align="center">{{ cpurank.clrat_two}} <img src="{% static 'images/good.png' %}"
+                                    alt='imagename' width="25" height="25"></td>
+                            {%else%}
+                            <td align="center">{{ cpurank.clrat_two}}</td>
+                            {%endif%}
+                        </tr>
+
+                        <!-- <tr>
+                            <td></td>
+                        </tr> -->
+
+                        <!-- <tr>
+                            <td align="center">總結</td>
+                            <td></td>
+                            <td></td>
+                            <td align="center">{{ cpurank.ansr}} <img src = "{% static 'images/trophy.png' %}" alt='imagename' width="50" height="50"></td>
+                        </tr> -->
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="col"></div>
+        </div>
+
+
+        <br><br><br>
+
+    </div>
+</body>
+
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'plugins/bootstrap-5.2.1-dist/css/bootstrap.min.css' %}">
+<script type="text/javascript" src="{% static 'plugins/bootstrap-5.2.1-dist/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'plugins/bootstrap-5.2.1-dist/js/bootstrap.bundle.min.js' %}"></script>
+<style>
+    .custom-tooltip {
+        --bs-tooltip-bg: var(--bs-primary);
+    }
+</style>
+<script type="text/javascript">
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        .forEach(tooltip => {
+            new bootstrap.Tooltip(tooltip)
+        })
+</script>
+<script>
+    // 新增檔案
+    $(".add_product").on("click", function () {
+        //   console.log('a')
+        $.ajax({
+            url: "{% url 'add_product' %}",
+            data: {
+                pk: this.id,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            type: "POST",
+            dataType: 'json',
+
+            success: function (message) {
+                const scc = document.getElementById('shopping_cart_count')
+                const toastLiveExample = document.getElementById('liveToast')
+                const toast = new bootstrap.Toast(toastLiveExample)
+                const toastBody = document.getElementById("toast-body")
+                scc.innerText = message['count']
+                toastLiveExample.className = "toast bg-success"
+                toastBody.innerText = "已加入購物車"
+                console.log(bootstrap.Toast.getInstance(toastLiveExample))
+                toast.show()
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                const toastLiveExample = document.getElementById('liveToast')
+                const toast = new bootstrap.Toast(toastLiveExample)
+                const toastBody = document.getElementById("toast-body")
+                toastLiveExample.className = "toast bg-danger"
+                toastBody.innerText = "登入加入購物車"
+                toast.show()
+            }
+        });
+    });
+    $(".add_tl").on("click", function () {
+        // console.log('a')
+        $.ajax({
+            url: "{% url 'add_tl' %}",
+            data: {
+                pk: this.id,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            type: "POST",
+            dataType: 'json',
+
+            success: function (message) {
+                location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        });
+    });
+    $("#2d").on("click", function () {
+        const ch_img = document.getElementById('change')
+        ch_img.innerHTML = `<img src="{% static  pd.product_name|image %}" alt="" style="width:500px;height: 281px;">`
+    });
+    $("#3d").on("click", function () {
+        const ch_img = document.getElementById('change')
+        ch_img.innerHTML = `<model-viewer loading="eager" bounds="tight" src="{% static 'model/bicycle.glb' %}" ar ar-modes="scene-viewer webxr quick-look" camera-controls environment-image="neutral"  shadow-intensity="1" style="background-color:black; width:500px;height: 281px; " ><div class="progress-bar hide" slot="progress-bar"><div class="update-bar"></div></div><button slot="ar-button" id="ar-button">View in your space</button></model-viewer>
+>`
+    });
+</script>

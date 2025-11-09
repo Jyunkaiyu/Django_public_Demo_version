@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static%}
+    {% load my_tags %}
+    <link rel="icon" href="{% static 'images/home_imag/favicon.ico' %}" type="image/x-icon" />
+    <title>首頁</title>
+    <!-- 將我們需要的google font字體連接 英文 -->
+    <link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+
+    <!-- 將我們需要的google font字體連接 中文 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
+
+    <!-- 與css連接 -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <script type="text/javascript" src="{% static  'js/jquery-3.6.0.min.js' %}"></script>
+
+    <!-- 連接bootstrap相關資源 -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- 使用標籤 -->
+</head>
+
+
+<style>
+    .self-search {
+        background-image: url("{% static 'images/home_imag/search_background.png' %}");
+    }
+
+    .btn-bd-primary {
+        --bs-btn-border-color: none;
+        --bs-btn-active-color: none;
+        --bs-btn-active-border-color: none;
+        --bs-btn-active-color: none;
+    }
+</style>
+<script type="text/javascript">
+
+    // jQuery抓取id categories 的 ul 將li 第一個值移到最後
+    function switch_left() {
+        $("#categories").append($('#categories > li:eq(0)'));
+    }
+
+    function switch_right() {
+        for (var i = 0; i < 5; i++) {
+            $("#categories").append($('#categories > li:eq(0)'));
+        }
+    }
+
+    let arr1 = ["Rjb5wozsMdc", "4tyRTk499OI", "8eSzDVavC-U", "zRqBZSASd0c", "Buk5BsG_MqE", "s04TOQkzv3c"];
+
+    ad_index = 1
+    ad_index_old = 0
+
+    // AD自動輪播事件
+    function active_AD() {
+        if (ad_index == 7) { ad_index = 1 }
+
+        ban.src = "/static/images/AD/AD_banner" + ad_index + ".png"
+        document.getElementById('ad_href').href = "https://www.youtube.com/watch?v=" + arr1[ad_index - 1]
+
+        // 清除框線
+        for (var i = 1; i < 7; i++) {
+            document.getElementById("banner" + i).style.border = "none"
+        }
+        // 指定框線
+        document.getElementById("banner" + ad_index).style.border = "solid 3px #FE424C"
+
+        // 選擇圖片動畫
+        if (ad_index == 4 && ad_index_old < ad_index || ad_index == 3 && ad_index_old > ad_index) {
+            document.getElementById("control-2").checked = true
+        }
+        else if (ad_index == 5) {
+            document.getElementById("control-3").checked = true
+        }
+        else if (ad_index == 1 || ad_index == 2) {
+            document.getElementById("control-1").checked = true
+        }
+        ad_index_old = ad_index
+        ad_index++
+
+        setTimeout(active_AD, 2000);
+
+    }
+
+    // AD_click切換主視窗事件
+    function ch_banner(n) {
+        // 可匯入陣列做切換
+        ad_index = n
+        ban.src = "/static/images/AD/AD_banner" + ad_index + ".png"
+
+
+        // 清除框線
+        for (var i = 1; i < 7; i++) {
+            document.getElementById("banner" + i).style.border = "none"
+        }
+        // 指定框線
+        document.getElementById("banner" + ad_index).style.border = "solid 3px #FE424C"
+
+        // 選擇圖片動畫
+        if (ad_index == 4 && ad_index_old < ad_index || ad_index == 3 && ad_index_old > ad_index) {
+            document.getElementById("control-2").checked = true
+        }
+        else if (ad_index == 5) {
+            document.getElementById("control-3").checked = true
+        }
+        else if (ad_index == 1 || ad_index == 2) {
+            document.getElementById("control-1").checked = true
+        }
+
+    }
+
+</script>
+
+<!-- 新增視窗變動 -->
+<!-- 邊更seach位置 -->
+
+<body onload="active_AD()">
+
+    <div class="container-head  container-fluid">
+        <!-- text-center 水平置中 -->
+
+
+        <!--head-->
+        <div class="row head">
+            <!-- <div style="padding: 10px;"></div> -->
+            <div class="col-3 text-right">
+                <div class="row justify-content-around">
+                    <div class="col"></div>
+                    <div class="col-5">
+                        <!-- col-sm-X 依照畫面縮放排版 -->
+                        <a href="{% url 'home' %}"><img type="button" id="logo"
+                                src="{% static 'images/home_imag/logo.svg' %}"></a>
+                        <!--logo-->
+
+                    </div>
+                    <div class="col"></div>
+                </div>
+
+            </div>
+            <div class=" col-7  d-flex align-items-center">
+
+                <div class="container-fluid ">
+                    <form action="{% url 'search' %}" method="get" class="row">
+
+                        <div class="col-lg-1 col-sm-1 col-1"></div>
+
+                        <div class="col-lg-9 col-sm-9 col-9 d-flex align-items-center">
+                            <input type="search" class="self-search" placeholder="Search" aria-label="Search" name="q">
+                            <!--搜尋input-->
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-1 rounded float-start">
+                            <button type="submit" class="btn btn-bd-primary"><img
+                                    src="{% static 'images/home_imag/search_img.png' %}" class="icon"></button>
+                            <!-- <button type="submit"  ><img class="icon" src="{% static 'images/home_imag/search_img.png' %}" alt=""></button> -->
+                            <!--搜尋button-->
+                        </div>
+
+                        <div class="col-lg-1 col-sm-1 col-1"></div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="col-2  d-flex align-items-center">
+                <!-- align-items-center 垂直置中 -->
+
+                <div>
+                    <a href="{% url 'shopping_cart' %}">
+                        <img type="button" id="shopping_icon" class="icon position-relative"
+                            src="{% static 'images/home_imag/shopping_cart_icon.png' %}">
+                    </a>
+                    <!--購物車button-->
+                    {% if request.user.is_authenticated %}
+                    <span class="position-absolute  translate-middle shopping_much_bg rounded-pill">
+                        {{ shopping_cart_count }}
+                    </span>
+                    {% endif %}
+                </div>
+
+                <p style="padding:20px;"></p>
+
+                {% if request.user.is_authenticated %}
+                <div class="dropdown">
+                    <img type="button" class="icon" src="{% static 'images/home_imag/mer.png' %}" id="member_centre"
+                        data-bs-toggle="dropdown" aria-expanded="false"> <!--會員與登入button-->
+                    <ul class="dropdown-menu dropdown-menu-end" style="background-color:#1c2f4d; border-radius: 0.5rem;"
+                        aria-labelledby="member_centre">
+
+                        <!--購買紀錄-->
+                        <li><a href="{% url 'purchase_record' %}" class="text-decoration-none"><span type="button"
+                                    class="purchase_record ">購買紀錄</span></a></li>
+
+                        <!--會員資料-->
+                        <li><a href="{% url 'member_profile' %}" class="text-decoration-none"><span type="button"
+                                    class="member_profile">會員資料</span></a></li>
+
+                        <!--我的最愛-->
+                        <!-- <li><span type ="button"class="saved" onclick="javascript:location.href='../saved'">Saved</span></li> -->
+                        <li><a href="{% url 'tracking_list' %}" class="text-decoration-none"><span type="button"
+                                    class="saved">追蹤清單</span></a></li>
+                        <!-- {% if request.user.username == 'admin' %}
+                            <li><a href="{% url 'admin_order_tracking' %}" class="text-decoration-none"><span type ="button"class="saved">訂單查詢</span></a></li>
+                            {% else %}
+                            <li><a href="{% url 'user_order_tracking' %}" class="text-decoration-none"><span type ="button"class="saved">訂單查詢</span></a></li>
+
+                            {% endif %} -->
+
+                        <!--更改密碼-->
+                        <li><a href="{% url 'change_password' %}" class="text-decoration-none"><span type="button"
+                                    class="change_password">更改密碼</span></a></li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <!--登出-->
+                        <li><span type="button" class="sign_out"><a href="{% url 'logout' %}"
+                                    class="text-decoration-none">登出</a></span></li>
+
+                    </ul>
+                </div>
+                {% else %}
+                <a href="{% url 'login1' %}"><img type="button" class="icon"
+                        src="{% static 'images/home_imag/member_icon.png' %}" id="member_centre"></a>
+                {% endif %}
+            </div>
+        </div>
+        <!--更新後 banner-->
+        <div class="row justify-content-around">
+            <div style="padding: 70px;"></div>
+            <div class="col-lg-10 col-sm-12">
+
+                <div id="banner" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <!-- data-bs-slide-to 輪播順序 -->
+                        <button type="button" data-bs-target="#banner" data-bs-slide-to="0" class=""
+                            aria-label="banner 1">
+                        </button>
+                        <button type="button" data-bs-target="#banner" data-bs-slide-to="1" aria-label="banner 2"
+                            class="">
+                        </button>
+                        <button type="button" data-bs-target="#banner" data-bs-slide-to="2" aria-label="banner 3"
+                            class="">
+                        </button>
+                        <button type="button" data-bs-target="#banner" data-bs-slide-to="3" aria-label="banner 4"
+                            class="">
+                        </button>
+                        <button type="button" data-bs-target="#banner" data-bs-slide-to="4" aria-label="banner 5"
+                            class="active" aria-current="true"></button>
+
+                    </div>
+                    <div class="carousel-inner">
+                        <!-- style播放動畫與時間 -->
+                        <div class="carousel-item"
+                            style="transition: transform .4s ease-in-out,-webkit-transform .4s cubic-bezier(0.65, -0.29, 0.44, 1.41)">
+                            <img style="width: 100%;" src="{% static 'images/home_imag/banner1.png' %}">
+                        </div>
+                        <div class="carousel-item"
+                            style="transition: transform .4s ease-in-out,-webkit-transform .4s cubic-bezier(0.65, -0.29, 0.44, 1.41)">
+                            <img style="width: 100%;" src="{% static 'images/home_imag/banner2.png' %}">
+                        </div>
+                        <div class="carousel-item"
+                            style="transition: transform .4s ease-in-out,-webkit-transform .4s cubic-bezier(0.65, -0.29, 0.44, 1.41)">
+                            <img style="width: 100%;" src="{% static 'images/home_imag/banner3.png' %}">
+                        </div>
+                        <div class="carousel-item"
+                            style="transition: transform .4s ease-in-out,-webkit-transform .4s cubic-bezier(0.65, -0.29, 0.44, 1.41)">
+                            <img style="width: 100%;" src="{% static 'images/home_imag/banner4.png' %}">
+                        </div>
+                        <div class="carousel-item active"
+                            style="transition: transform .4s ease-in-out,-webkit-transform .4s cubic-bezier(0.65, -0.29, 0.44, 1.41)">
+                            <img style="width: 100%;" src="{% static 'images/home_imag/banner5.png' %}">
+                        </div>
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#banner" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">上一個</font>
+                            </font>
+                        </span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#banner" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">下一個</font>
+                            </font>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+
+        <!--分類-->
+        <!-- title -->
+        <div class="row justify-content-around">
+            <div class="col"></div>
+            <div class="col ">
+                <span class="title"><img id="icon" src="{% static 'images/home_imag/discount_img.svg' %}">分類<img
+                        id="icon" src="{% static 'images/home_imag/discount_img.svg' %}"></span>
+            </div>
+            <div class="col"></div>
+        </div>
+        <br><br>
+        <!-- banner -->
+
+        <div class="row justify-content-around div_categorie">
+            <!-- 左button -->
+            <div class="col btn_50">
+                <button class="left_right_btn" onclick="switch_left()">
+                    < </button>
+            </div>
+
+            <div class="col-10">
+                <ul id="categories" class="categories">
+                    {% for i in category %}
+                    <li class="categorie">
+                        <figure class="categorie">
+                            <!-- 種類圖片 -->
+                            <a href="{% url 'search' %}?q={{ i.category }}"><img class="categorie"
+                                    src="{% static i.category|category_image %}"></a>
+                            <br />
+                            <!-- 種類名稱 -->
+                            <p class="categorie">{{ i.category }}</p>
+                        </figure>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <!-- 右邊button -->
+            <div class="col btn_50">
+                <button class="left_right_btn" onclick="switch_right()">></button>
+            </div>
+        </div>
+
+        <br><br>
+
+        <!--熱銷商品排行-->
+        <!-- 熱銷title -->
+        <div class="row justify-content-around">
+            <div class="col"></div>
+            <div class="col ">
+                <span class="title"><img id="icon" src="{% static 'images/home_imag/discount_img.svg' %}">銷售排行榜<img
+                        id="icon" src="{% static 'images/home_imag/discount_img.svg' %}"></span>
+            </div>
+            <div class="col"></div>
+        </div>
+        <br><br>
+        <!-- top 商品 -->
+        <div class="row justify-content-around">
+            <!-- 邊界 -->
+            <div class="col-lg-1 col">
+            </div>
+            <!-- 商品 -->
+            <div class="col-2">
+                <figure class="top_com">
+                    <div style="padding: 20px;"></div>
+                    <!-- 商品圖片 -->
+                    <div class="text-center">
+                        <a href="{% url 'product' top4_pd.0.id %}"><img class="com_img"
+                                src="{% static  top4_pd.0.product_name|image %}"></a>
+                    </div>
+                    <!-- 我的最愛 -->
+                    <div class="text-right">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if top4_pd.0.id in tl %}
+                            <img type="button" class="top_save_icon add_tl"
+                                src="{% static 'images/home_imag/lightning_icon_save.png' %}" id="{{ top4_pd.0.id }}"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="加入追蹤清單">
+                            {% else %}
+                            <img type="button" class="top_save_icon add_tl"
+                                src="{% static 'images/home_imag/lightning_icon.png' %}" id="{{ top4_pd.0.id }}"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="加入追蹤清單">
+                            {% endif %}
+                        </form>
+                    </div>
+                </figure>
+                <table style="width: 100%;">
+                    <!-- 商品名稱 -->
+                    <tr>
+                        <td colspan="2" class="com_name ">{{ top4_pd.0.product_name }}</td>
+                    </tr>
+                    <tr>
+                        <!-- 商品種類 -->
+                        <td>
+                            <p class="com_txt">{{ top4_pd.0.category }}</p>
+                        </td>
+                        <!-- 商品價格 -->
+                        <td class="text-right">
+                            <p class="com_txt">${{ top4_pd.0.price }}</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-2">
+
+                <figure class="top_com">
+                    <div style="padding: 20px;"></div>
+                    <div class="text-center">
+                        <a href="{% url 'product' top4_pd.1.id %}"><img class="com_img"
+                                src="{% static  top4_pd.1.product_name|image %}"></a>
+                    </div>
+                    <div class="text-right">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if top4_pd.1.id in tl %}
+                            <img type="button" class="top_save_icon add_tl"
+                                src="{% static 'images/home_imag/lightning_icon_save.png' %}" id="{{ top4_pd.1.id }}"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="加入追蹤清單">
+                            {% else %}
+                            <img type="button" class="top_save_icon add_tl"
+                                src="{% static 'images/home_imag/lightning_icon.png' %}" id="{{ top4_pd.1.id }}"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="加入追蹤清單">
+                            {% endif %}
+                        </form>
+                    </div>
+                </figure>
+                <table style="width: 100%;">
+                    <tr>
+                        <td colspan="2" class="com_name ">{{ top4_pd.1.product_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="com_txt">{{ top4_pd.1.category }}</p>
+                        </td>
+                        <td class="text-right">
+                            <p class="com_txt">${{ top4_pd.1.price }}</p>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="col-2">
+
+                <figure class="top_com">
+                    <div style="padding: 20px;"></div>
+                    <div class="text-center">
+                        <a href="{% url 'product' top4_pd.2.id %}"><img class="com_img"
+                                src="{% static  top4_pd.2.product_name|image %}"></a>
+                    </div>
+                    <div class="text-right">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if top4_pd.2.id in tl %}
+                            <img type="button" class="top_save_icon add_tl"
+                                src="{% static 'images/home_imag/lightning_icon_save.png' %}" id="{{ top4_pd.2.id }}"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="加入追蹤清單">
+                            {% else %}
+                            <img type="button" class="top_save_icon add_tl"
+                                src="{% static 'images/home_imag/lightning_icon.png' %}" id="{{ top4_pd.2.id }}"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="加入追蹤清單">
+                            {% endif %}
+                        </form>
+                    </div>
+                </figure>
+                <table style="width: 100%;">
+                    <tr>
+                        <td colspan="2" class="com_name ">{{ top4_pd.2.product_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="com_txt">{{ top4_pd.2.category }}</p>
+                        </td>
+                        <td class="text-right">
+                            <p class="com_txt">${{ top4_pd.2.price }}</p>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="col-2">
+
+                <figure class="top_com">
+                    <div style="padding: 20px;"></div>
+                    <div class="text-center">
+                        <a href="{% url 'product' top4_pd.3.id %}"><img class="com_img"
+                                src="{% static  top4_pd.3.product_name|image %}"></a>
+                    </div>
+                    <div class="text-right">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if top4_pd.3.id in tl %}
+                            <img type="button" class="top_save_icon add_tl"
+                                src="{% static 'images/home_imag/lightning_icon_save.png' %}" id="{{ top4_pd.3.id }}"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="加入追蹤清單">
+                            {% else %}
+                            <img type="button" class="top_save_icon add_tl"
+                                src="{% static 'images/home_imag/lightning_icon.png' %}" id="{{ top4_pd.3.id }}"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="加入追蹤清單">
+                            {% endif %}
+                        </form>
+                    </div>
+                </figure>
+
+                <table style="width: 100%;">
+                    <tr>
+                        <td colspan="2" class="com_name ">{{ top4_pd.3.product_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="com_txt">{{ top4_pd.3.category }}</p>
+                        </td>
+                        <td class="text-right">
+                            <p class="com_txt">${{ top4_pd.3.price }}</p>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="col-lg-1 col">
+
+            </div>
+
+
+        </div>
+
+        <br><br><br>
+        <br>
+        <!--AD-->
+        <div class="row justify-content-around">
+            <div class="col"></div>
+            <div class="col-lg-8 col-sm-12 align-items-center">
+                <!-- 廣告主圖片 -->
+                <div class="box">
+                    <a id="ad_href" href="https://www.youtube.com/watch?v=k4Yiam63Bng&ab_channel=Huan" target="_blank">
+                        <img style="width: 100%;" id="ban" src="{% static 'images/AD/AD_banner1.png' %}">
+                    </a>
+                </div>
+                <br>
+                <div>
+                    <ul class="slides">
+                        <!-- radio 控制器 -->
+                        <input type="radio" id="control-1" name="control" checked>
+                        <input type="radio" id="control-2" name="control">
+                        <input type="radio" id="control-3" name="control">
+
+                        <!-- 廣告小圖 -->
+                        <li class="slide" checked><img style="width: 90%;" id="banner1" onclick="ch_banner(1)"
+                                src="{% static 'images/AD/AD_banner1.png' %}"></li>
+                        <li class="slide"><img style="width: 95%;" id="banner2" onclick="ch_banner(2)"
+                                src="{% static 'images/AD/AD_banner2.png' %}"></li>
+                        <li class="slide"><img style="width: 90%;" id="banner3" onclick="ch_banner(3)"
+                                src="{% static 'images/AD/AD_banner3.png' %}"></li>
+                        <li class="slide"><img style="width: 90%;" id="banner4" onclick="ch_banner(4)"
+                                src="{% static 'images/AD/AD_banner4.png' %}"></li>
+                        <li class="slide"><img style="width: 90%;" id="banner5" onclick="ch_banner(5)"
+                                src="{% static 'images/AD/AD_banner5.png' %}"></li>
+                        <li class="slide"><img style="width: 90%;" id="banner6" onclick="ch_banner(6)"
+                                src="{% static 'images/AD/AD_banner6.png' %}"></li>
+
+                        <!-- radio 外觀 -->
+                        <div class="controls-visible">
+                            <label for="control-1"></label>
+                            <label for="control-2"></label>
+                            <label for="control-3"></label>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <br>
+
+    </div>
+    <div id="cpurank" type="button">
+        <div id="liveAlertPlaceholder" class=""></div>
+        <form method="post">
+            <!-- url 'buy' -->
+            <div style="display: flex;"><span style="color:  #56E096; font-size: 22pt;"><b>＜　</b></span>
+                <a href="{% url 'cpu_rank' %}" class="text-decoration-none"><img class="icon"
+                        src="{% static 'images/tool_img/searchCPU.png' %}">　　</a>
+                <a href="{% url 'Line_robot' %}"><img class="icon" src="{% static 'images/tool_img/linebot.png' %}"></a>
+            </div>
+        </form>
+    </div>
+</body>
+
+<style>
+    .custom-tooltip {
+        --bs-tooltip-bg: var(--bs-primary);
+    }
+</style>
+<script>
+    if (document.addEventListener) {
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted || performance.getEntriesByType("navigation")[0].type === 'back_forward') {
+                location.reload();
+
+            }
+        },
+            false);
+    }
+</script>
+<script>
+    $(".add_tl").on("click", function () {
+        $.ajax({
+            url: "{% url 'add_tl' %}",
+            data: {
+                pk: this.id,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+
+            },
+            type: "POST",
+            dataType: 'json',
+
+            success: function (message) {
+                if (message['data'] == 'add') {
+                    $(`#${message['pk']}`).attr('src', "{% static 'images/home_imag/lightning_icon_save.png' %}")
+                } else {
+                    $(`#${message['pk']}`).attr('src', "{% static 'images/home_imag/lightning_icon.png' %}")
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        });
+    });
+</script>
+
+</html>

@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+{% block title %}
+購物車
+{% endblock %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Members</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+        </li>
+      </ul>
+      <form class="d-flex" method="post" role="search"> 
+        <div class="input-group w-auto">
+          <input type="search" class="form-control" name="search" value="{{search_name}}">
+          <input type="submit" value="搜尋" class="btn btn-outline-primary">
+        </div>
+      </form>
+      {% if request.user.is_authenticated %}
+    
+    <div class="btn-group p-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor"
+        class="bi bi-person-circle dropdown-toggle" viewBox="0 0 16 16" data-bs-toggle="dropdown"
+        aria-expanded="false">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+        <path fill-rule="evenodd"
+          d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+      </svg>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{% url 'profile' request.user.id %}">個人資料</a></li>
+        <li><a class="dropdown-item" href="{% url 'shopping_cart' %}">
+          購物車
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ shopping_cart_count }}
+            <span class="visually-hidden">unread messages</span>
+          </span>
+        </a>
+        </li>
+        <li><a class="dropdown-item" href="{% url 'password_reset' %}">變更密碼</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a href="{% url 'logout' %}" class="btn btn-outline-primary me-2 dropdown-item">登出</a></li>
+      </ul>
+    </div>
+    <div class="p-2 navbar-text">
+      哈囉,{{ request.user.first_name }}{{ request.user.last_name }}
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    {% else %}
+    <div class="p-2">
+      <a href="{% url 'login' %}" class="btn btn-outline-primary">登入</a>
+    </div>
+    {% endif %}
+  </div>
+    </div>
+  </div>
+</nav>
+<br>
+
+<form method="post" id="form">
+  {% csrf_token %}
+<div class="container">
+  <div class="row row-cols-2 text-center">
+  {% for product in products %} 
+    <div class="col col-mb-3">
+      <div class="text-light">
+        {{ product.product_name.id }}
+      </div>
+      <br>
+      <div class="text-light">
+        {{ product.product_name.product_name }}       
+      </div>
+      <br>
+      <div>
+        <a href="{% url 'product' product.product_name.id %} "class="text-light">詳細資料</a>      
+      </div>
+      <br>
+      <div>
+        {{ selects }}
+        <!-- <select name="selects" class="select_op"  id="{{ product.product_name.id }}">
+          {% for i in range %}
+          <option value="{{ i }}" {% if i == product.counts %}selected='selected'{% endif %}>{{ i }}</option>
+          {% endfor %}
+        </select>&nbsp;&nbsp;&nbsp; -->
+        <a href="{% url 'delete_product' product.id %}" class="btn btn-outline-primary text-light">刪除</a>
+      </div>
+      <br>
+      <div>
+      <div class="input-group w-auto p-3 "  class="a">
+        <input type="button"  class="form-control counts" value="-" id="{{ product.product_name.id }}">
+        <input type="text"  class="form-control text" value="{{ product.counts }}"  onfocus="this.select()" id="text_{{ product.product_name.id }}">
+        <input type="button"  class="form-control counts" value="+" id="{{ product.product_name.id }}">
+      </div>
+
+    </div>
+    </div>
+  <br>
+  {% endfor %}
+  </div>
+  <div id="liveAlertPlaceholder" class=""></div>
+  <div class="row">
+    <div class="col text-end">
+      <form method="post">
+      {% csrf_token %}
+      <a href="{% url 'buy' %}" class="btn btn-outline-primary">購買</a>   
+      </form>
+    </div>
+    
+  </div>
+</div>
+<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+
+  <div id="liveToast" class="toast bg-success" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000">
+    <div class="toast-body text-light" id="toast-body">
+      商品已更新
+    </div>
+  </div>
+
+</div>
+</form>
+{{ test }}
+<div id="message"></div>
+
+
+<script type="text/javascript"
+src="{% static  'js/jquery-3.6.0.min.js' %}"></script>
+<script>
+  // const form = document.getElementById('select_op');
+  //   form.addEventListener("selectionchange", submitHandler);
+
+  //   function submitHandler(e) {
+  //       e.preventDefault();
+  //       $.ajax({
+  //           type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+  //           url         : "{% url 'shopping_cart' %}", // the url where we want to POST
+  //           data        : $('#select_op').serialize(), // our form data
+  //           dataType    : 'json', // what type of data do we expect back from the server
+  //           success     : successFunction
+  //       });
+  //   }
+
+  //   function successFunction(msg) {
+  //       if (msg.message === 'success') {
+  //           alert('Success!');
+  //           form.reset()
+  //       }
+  //   }
+  const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+  const alert = (message, type) => {
+  const wrapper = document.createElement('div')
+  wrapper.innerHTML = [
+    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+    `   <div>${message}</div>`,
+    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+    '</div>'
+  ].join('')
+  
+  alertPlaceholder.append(wrapper)
+  }
+  // $('.select_op').change(function(){
+  //   console.log(this)
+  // })
+  $(".select_op").on("change", function() {
+    $.ajax({
+        url: "{% url 'shopping_cart' %}",
+        data: {
+          id:this.id,
+          select_value:this.value,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },                           
+        type:"POST",
+        dataType:'json',
+
+        success: function(message){
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)         
+          // console.log(bootstrap.Toast.getInstance(toastLiveExample))    
+          alert('更改成功', 'success')    
+          toast.show()
+        },
+
+        error:   function(jqXHR, textStatus, errorThrown){ 
+            document.getElementById("message").innerHTML=errorThrown; 
+        }
+    });
+  });
+  $(".counts").on("click", function() {
+    $.ajax({
+        url: "{% url 'shopping_cart' %}",
+        data: {
+          id:this.id,
+          input_value:this.value,
+          data:$('#text_'+this.id).val()
+        },                           
+        type:"POST",
+        dataType:'json',
+        success: function(message){
+          const input_text=document.getElementById(message['id'])
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          const toastBody = document.getElementById("toast-body")
+          toastBody.innerText="商品已更新"
+          toastLiveExample.className="toast bg-success"         
+          // console.log(bootstrap.Toast.getInstance(toastLiveExample))  
+          input_text.value=message['test'] 
+          // alert('更改成功', 'success')    
+          toast.show()
+        },
+
+        error:   function(jqXHR, textStatus, errorThrown){ 
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          const toastBody = document.getElementById("toast-body")
+          toastLiveExample.className="toast bg-danger"
+          toastBody.innerText="輸入值只能是數字"
+          toast.show()
+        }
+    });
+  });
+  $(".text").on("change", function() {
+    console.log('a')
+    $.ajax({
+        url: "{% url 'shopping_cart' %}",
+        data: {
+          id:this.id.slice(5),
+          input_value:'text',
+          data:this.value
+        },                           
+        type:"POST",
+        dataType:'json',
+
+        success: function(message){
+          const input_text=document.getElementById(message['id'])
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          const toastBody = document.getElementById("toast-body")
+          toastBody.innerText="商品已更新"
+          toastLiveExample.className="toast bg-success"     
+          input_text.value=message['test']         
+          console.log(bootstrap.Toast.getInstance(toastLiveExample))        
+          toast.show()
+        },
+
+        error:   function(jqXHR, textStatus, errorThrown){ 
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          const toastBody = document.getElementById("toast-body")
+          toastBody.innerText="輸入值只能是數字"
+          toastLiveExample.className="toast bg-danger"
+          toast.show()
+        }
+    });
+  });
+  $(document).on("keypress", "form", function (e) {
+    var code = e.keyCode || e.which;
+    if (code == 13) {
+        e.preventDefault();
+        return false;
+    }
+});
+</script>
+{% endblock %}

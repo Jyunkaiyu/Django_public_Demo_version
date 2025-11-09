@@ -1,0 +1,80 @@
+.container-head {
+    background-color: rgba(0, 5.000000176951289, 20.000000707805157, 1);
+    height: 100%;
+}
+
+#logo {
+    width: 180px;
+    height: 120px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.purchase_record_txt {
+    color: rgba(101.00000157952309, 99.00000169873238, 255, 1);
+    font-family: Coda;
+    text-align: left;
+    font-size: 40px;
+}
+
+.COMM_name {
+    font-size: 20pt;
+    color: #56E096;
+    font-family: Coda;
+}
+
+.COMM_price {
+    font-size: 16spt;
+    color: white;
+    font-family: Coda;
+}
+
+/* 加減 */
+.control1 {
+    color: #56E096;
+    background-color: #000513;
+    font-family: Coda;
+}
+
+.icon {
+    height: 35px;
+    width: 35px;
+
+}
+
+/* 判斷視窗寬度切換版面 */
+
+@media (max-width:990px) {
+    .img_hdn {
+        display: none
+    }
+}
+
+
+#BUY {
+
+    position: fixed;
+    /*固定在網頁上不隨卷軸移動，若要隨卷軸移動用absolute*/
+
+
+    right: 50px;
+
+    bottom: 50px;
+    /*設置水平位置，依所放的內容多寡需要自行手動調整*/
+
+    background: #1c2f4d;
+    /*背景顏色*/
+
+    padding: 10px 20px;
+
+    border-radius: 10px;
+    /*圓角*/
+
+    -moz-border-radius: 10px;
+
+    -webkit-border-radius: 10px;
+}
+#BUY:hover{  /*當滑鼠移至此區塊時，伸縮區塊*/
+
+    box-shadow: 0 0 10px #56E096,0 0 20px #56E096;
+}

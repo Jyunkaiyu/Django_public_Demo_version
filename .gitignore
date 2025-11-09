@@ -1,0 +1,19 @@
+# 環境變數
+.env
+
+# 虛擬環境
+venv/
+*.venv/
+
+# Python 暫存檔
+*.pyc
+__pycache__/
+
+# 本機開發用的資料庫 (不上傳)
+db.sqlite3
+*.sqlite3
+
+# 使用者上傳的檔案 (另外存放)
+media/
+
+sent_mail/

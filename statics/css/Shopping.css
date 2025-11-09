@@ -1,0 +1,168 @@
+.container-head {
+
+    background-color: #000514;
+}
+
+.head {
+    position: fixed;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    background-color: hsla(225, 100%, 4%, 0.8);
+    z-index: 9999;
+}
+
+#logo {
+    width: 180px;
+    height: 120px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.shopping_much_bg {
+    padding: 0.35em 0.65em;
+    font-size: .75em;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(89.00000229477882, 199.0000033378601, 171.00000500679016, 1);
+    font-family: Coda;
+    text-align: center;
+    white-space: nowrap;
+    background-color: rgba(86.00000247359276, 224.000001847744, 150.0000062584877, 0.10000000149011612);
+}
+
+
+.self-search {
+    padding: 15px;
+    width: 100%;
+    height: 40px;
+    font-family: Coda;
+    background-color: #ffffffd5;
+    border: 0;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    padding-right: 10px;
+}
+
+/* top */
+.top_com {
+    background-color: #19a5b7;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* 商品我的最愛 */
+.save_icon {
+    width: 30px;
+    height: 30px;
+    margin: 20px 20px;
+}
+
+.ch_icon
+{
+    width: 30px;
+    height: 30px;
+    margin: 10px 10px;
+}
+
+.com_img {
+    width: 100%;
+    object-fit: contain;
+    height: 180px;
+}
+@media (max-width: 1000px) {
+    .com_img{
+        height: 140px;
+    }
+}
+
+@media (max-width: 700px) {
+    .com_img{
+        height: 100px;
+    }
+}
+/* 商品名稱 */
+.com_name {
+    color: #19A5B7;
+    font-family: Coda;
+    font-size: 16pt;
+}
+
+/* 商品資訊 */
+.com_txt {
+    font-family: Coda;
+    color: #fff;
+}
+
+.ch1_com_bg
+{
+    background-color: #19a5b750;
+}
+
+.CH {
+
+    position: fixed;
+    /*固定在網頁上不隨卷軸移動，若要隨卷軸移動用absolute*/
+
+    right: 50px;
+
+    bottom: 50px;
+    /*設置水平位置，依所放的內容多寡需要自行手動調整*/
+
+    background: #1c2f4d;
+    /*背景顏色*/
+
+    /* padding: 10px 20px; */
+
+    border-radius: 10px;
+    /*圓角*/
+
+    -moz-border-radius: 10px;
+
+    -webkit-border-radius: 10px;
+}
+.purchase_record {
+    padding: 0.25rem 1rem;
+    color: rgba(95.00000193715096, 149.00000631809235, 213.00000250339508, 1);
+    font-family: Coda;
+    font-size: 16px;
+}
+
+.member_profile {
+    padding: 0.25rem 1rem;
+    color: rgba(92.00000211596489, 174.00000482797623, 192.00000375509262, 1);
+    font-family: Coda;
+    font-size: 16px;
+}
+
+.saved {
+    padding: 0.25rem 1rem;
+    color: rgba(89.00000229477882, 199.0000033378601, 171.00000500679016, 1);
+    font-family: Coda;
+    font-size: 16px;
+}
+
+.sign_out {
+    padding: 0.25rem 1rem;
+    color: rgba(243.00000071525574, 67.00000360608101, 54.00000058114529, 1);
+    font-family: Coda;
+    font-size: 16px;
+}
+
+.change_password {
+    padding: 0.25rem 1rem;
+    color: #56E096;
+    font-family: Coda;
+    font-size: 15px;
+}

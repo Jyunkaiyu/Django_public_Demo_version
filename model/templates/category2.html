@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 將我們需要的google font字體連接 英文 -->
+    <link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+
+    <!-- 將我們需要的google font字體連接 中文 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
+
+    <!-- 與css連接 -->
+    <link rel="stylesheet" href="../static/css/category1.css">
+
+
+    <!-- 連接bootstrap相關資源 -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- 使用標籤 -->
+    {% load static%}
+
+</head>
+
+<script type="text/javascript">
+    function test() {
+        document.getElementById('cpu_name1').attributes["value"].value = document.getElementById('originalcpu').attributes["value"].value;
+    }
+</script>
+
+<body class="container-head  container-fluid" onload="test()">
+    <div class="row justify-content-around head">
+        <div class="row col-10">
+            <!-- <div style="padding: 10px;"></div> -->
+            <div class="col-lg-2 col-sm-3 col-5 text-right">
+                <!-- col-sm-X 依照畫面縮放排版 -->
+                <img type="button" id="logo" src="{% static 'images/logo.svg' %}"
+                    onclick="javascript:location.href='../home'">
+                <!--logo-->
+            </div>
+            <div class="col-lg-8 col-sm-6 col-2  d-flex align-items-center">
+                <div class="row container-fluid ">
+                    <div class="col-lg-1 col-sm-1 col-1"></div>
+                    <div class="col-lg-9 col-sm-9 col-9 d-flex align-items-center">
+                        <input type="search" class="self-search" placeholder="Search" aria-label="Search">
+                        <!--搜尋input-->
+                    </div>
+                    <div class="col-lg-1 col-sm-1 col-1 rounded float-start">
+                        <img class="icon" src="{% static 'images/search_img.png' %}">
+                        <!--搜尋button-->
+                    </div>
+                    <div class="col-lg-1 col-sm-1 col-1"></div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-3 col-5  d-flex align-items-center justify-content-around">
+                <!-- align-items-center 垂直置中 -->
+
+                <div>
+                    <!--購物車button-->
+                    <img type="button" id="shopping_icon" class="icon position-relative"
+                        src="{% static 'images/shopping_cart_icon.png' %}"
+                        onclick="javascript:location.href='../shopping_cart'">
+                    <span class="position-absolute  translate-middle shopping_much_bg rounded-pill">
+                        99+
+                    </span>
+                </div>
+                <!-- 
+                <p style="padding:20px;"></p> -->
+
+                <div class="dropdown">
+                    <!--會員與登入button-->
+                    <img type="button" class="icon" src="{% static 'images/member_icon.png' %}" id="member_centre"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <ul class="dropdown-menu dropdown-menu-end" style="background-color:#1c2f4d; border-radius: 0.5rem;"
+                        aria-labelledby="member_centre">
+
+                        <!--購買紀錄-->
+                        <li><span type="button" class="purchase_record "
+                                onclick="javascript:location.href='../purchase_record'">Purchase Record</span></li>
+
+                        <!--會員資料-->
+                        <li><span type="button" class="member_profile"
+                                onclick="javascript:location.href='../member_profile'">Member Profile</span></li>
+
+                        <!--我的最愛-->
+                        <li><span type="button" class="saved" onclick="javascript:location.href='../save'">Saved</span>
+                        </li>
+
+                        <!--更改密碼-->
+                        <li><span type="button" class="change_password">Change Password</span></li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <!--登出-->
+                        <li><span type="button" class="sign_out" onclick="javascript:location.href='../home'">Sign
+                                out</span></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-around ">
+        <div class="col">
+
+        </div>
+        <div class="col">
+            <image style="width: 1200px; height:200px;" src="{% static 'images/recommend_AD.png' %}">
+        </div>
+        <div class="col">
+
+        </div>
+
+    </div>
+
+
+    <!-- <img class="separate_line" src="{% static 'images/separate_line.png' %}"> -->
+
+    <p style="padding:20px;"></p>
+
+    <div class="container ">
+        <div class="row justify-content-around category_background">
+            <!-- 邊界 -->
+            <div class="col"></div>
+            <!-- 圖片 -->
+            <div class="col-11 col-lg-7 col-sm-11 container">
+                <img src="{% static 'images/banner1.png' %}" alt="" style="width:650px;">
+                <br>
+                <div class="row ">
+                    <span style="padding: 10px;"></span>
+                    <div class="col-2"></div>
+                    <!-- 切換2D3Dbutton -->
+                    <div class="col-3">
+                        <img type="button" src="{% static 'images/2d_icon.svg' %} " style="width: 60px; ">
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-3">
+                        <img type="button" src="{% static 'images/3d_icon.svg' %} " style="width: 60px; ">
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+            <div class="n-col-11 col-lg-4 n-col-sm-11 " style="height: 350px ;">
+                <div class="COMM_name position-absolute top-0 start-0" value='AMD Ryzen 5 5600X' id='originalcpu'>
+                    AMD Ryzen 5 5600X
+                </div>
+                <br><br>
+                <div class="COMM_desc position-absolute start-0">
+                    產品描述
+                </div>
+                <div class="position-absolute bottom-50 end-0">
+                    <a href="#" target="_blank" style="text-decoration:none;" class="details">詳細資料</a>
+                </div>
+                <div class="position-absolute bottom-0 start-0">
+                    <!-- 我的最愛button -->
+                    <img type="button" class="icon" src="{% static 'images/lightning_icon.png' %}">
+                </div>
+                <div class="position-absolute bottom-0 end-0">
+                    <form method="post">
+                        <input type="button" value="加入購物車" class="input_cart">
+
+                    </form>
+                </div>
+            </div>
+            <div class="col"></div>
+
+
+            <div class="toast-container position-fixed bottom-0 end-0 p-3 ">
+                <div id="liveToast" class="toast bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-body text-light" id="toast-body">
+                        已加入購物車
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+
+
+
+        <!-- <div class="row  justify-content-around">
+            <div class="col"></div>
+
+            <div class="col-8 container">
+
+                <div class="text-left winner">Winner</div>
+
+            </div>
+
+            <div class="col"></div>
+        </div> -->
+
+
+
+        <br><br>
+
+
+
+
+        <div class="container-fluid" style="height: 100%;">
+
+
+            <div class="row justify-content-around">
+                <div class="col"></div>
+                <div class="col-11">
+                    <form action="" method="Post">
+                        {% csrf_token %}
+
+                        <br>
+                        <input type="hidden" name="cpu_name1" readonly="readonly" value='originalcpu' id="cpu_name1"
+                            value size="33">
+                        <!-- <input name="cpu_name222" placeholder="輸入cpu2名稱" size="33"> -->
+                        <select id="com_2" name="cpu_name2" style="width: 25%;" class="com_2">
+                            <!-- <option selected>選擇比較型號</option> -->
+
+                            <option disabled="disable">Intel</option>
+                            <option>Intel Core i5-12400</option>
+                            <option>Intel Pentium Gold G6405</option>
+                            <option>Intel Core i5-12400F</option>
+                            <option>Intel Core i7-12700F</option>
+                            <option disabled="disable">AMD</option>
+                            <option>AMD Ryzen 3 4100</option>
+                            <option>AMD Ryzen 5 5600</option>
+                            <option>AMD Ryzen 5 5600X</option>
+                            <option>AMD Ryzen 5 5600G</option>
+                            <option>AMD Ryzen 7 5700X</option>
+                            <option>AMD Ryzen 7 7700X</option>
+                        </select>
+
+                        <input style="font-size: 18pt;" class="demand" type="submit" value="查詢">
+                    </form>
+
+                    <br>
+
+
+
+
+                    <table  style="color:white;width: 100%;">
+
+                        <!-- <thead>
+                            <tr>
+                                <td align="center"></td>
+                                <td align="center">cpu1稱號</td>
+
+                                
+
+                                <th></th>
+                                <td align="center">cpu2稱號</td>
+                            </tr>
+                        </thead> -->
+                        <tbody style="font-size: 18pt;">
+                            {% for cpurank in unicpuranks %}
+                            <tr>
+                                <td class="align-middle" align="center">型號</td>
+                                {%if cpurank.ansr == cpurank.cpuone %}
+                                <td align="center" style="color:#56E096;font-weight:bold;">{{ cpurank.cpuone}} 
+                                    <img src="{% static 'images/trophy.png' %}"
+                                        alt='imagename' width="50" height="50">
+                                    </td>
+                                {%else%}
+                                <td class="align-middle" align="center">{{ cpurank.cpuone}}</td>
+                                {%endif%}
+
+
+
+                                <td></td>
+                                {%if cpurank.ansr == cpurank.cputwo %}
+                                <td align="center" style="color:#56E096;font-weight:bold;">{{ cpurank.cpuone}} 
+                                    <img src="{% static 'images/trophy.png' %}"
+                                        alt='imagename' width="50" height="50">
+                                    </td>
+                                {%else%}
+                                <td class="align-middle" align="center">{{ cpurank.cputwo }}</td>
+                                {%endif%}
+                            <tr>
+
+                                <td align="center">跑分</td>
+                                {%if "+" in cpurank.nuans%}
+                                <td align="center">{{ cpurank.score_one}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename' width="35" height="35"></td>
+                                {% else %}
+                                <td align="center">{{ cpurank.score_one}}</td>
+                                {% endif %}
+
+                                <td></td>
+                                {%if "-" in cpurank.nuans%}
+                                <td align="center">{{ cpurank.score_two }} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename'  width="35" height="35"></td>
+                                {% else %}
+                                <td align="center">{{ cpurank.score_two }}</td>
+                                {% endif %}
+
+                            </tr>
+                            <tr>
+
+                                <td align="center">性價比</td>
+                                {%if "+" in cpurank.cpugvans%}
+                                <td align="center">{{ cpurank.cpugv}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename'  width="35" height="35"></td>
+                                {%else%}
+                                <td align="center">{{ cpurank.cpugv}}</td>
+                                {%endif%}
+
+                                <td></td>
+
+                                {%if "-" in cpurank.cpugvans%}
+                                <td align="center">{{ cpurank.cpugv_two}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename' width="35" height="35"></td>
+                                {%else%}
+                                <td align="center">{{ cpurank.cpugv_two}} </td>
+                                {% endif %}
+
+                            </tr>
+
+                            <tr>
+                                <td align="center">核心</td>
+                                {%if "+" in cpurank.cpucoreans%}
+                                <td align="center">{{ cpurank.cpucore}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename' width="35" height="35"></td>
+                                {%else%}
+                                <td align="center">{{ cpurank.cpucore}}</td>
+                                {%endif%}
+
+                                <td></td>
+
+                                {%if "-" in cpurank.cpucoreans%}
+                                <td align="center">{{ cpurank.cpucore_two}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename'  width="35" height="35"></td>
+                                {%else%}
+                                <td align="center">{{ cpurank.cpucore_two}}</td>
+                                {% endif %}
+                            </tr>
+
+                            <tr>
+                                <td align="center">時脈</td>
+                                {%if "+" in cpurank.clratans%}
+                                <td align="center">{{ cpurank.clrat}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename'  width="35" height="35"></td>
+                                {%else%}
+                                <td align="center">{{ cpurank.clrat}}</td>
+                                {%endif%}
+
+
+                                <td></td>
+                                {%if "-" in cpurank.clratans%}
+                                <td align="center">{{ cpurank.clrat_two}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename'  width="35" height="35"></td>
+                                {%else%}
+                                <td align="center">{{ cpurank.clrat_two}}</td>
+                                {%endif%}
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="col"></div>
+            </div>
+
+
+            <br><br><br>
+
+        </div>
+
+
+</body>
+
+
+</div>
+
+
+
+</div>
+
+</div>
+</body>

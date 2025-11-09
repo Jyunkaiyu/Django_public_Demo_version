@@ -1,0 +1,8 @@
+p{
+  color: rgb(0, 224, 249);
+}
+model-viewer {
+  background-color: rgb(9, 0, 0);
+  overflow-x: hidden;
+  --poster-color: #eee;
+}

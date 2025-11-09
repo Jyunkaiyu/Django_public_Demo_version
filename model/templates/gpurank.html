@@ -1,0 +1,96 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/static/css/styles.css">
+
+	<link rel="stylesheet" href="../static/css/gpurank.css">
+
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	{% load static%}
+  <link rel="icon" href="{% static 'images/home_imag/favicon.ico' %}" type="image/x-icon" />
+	<title>顯示卡排名</title>
+
+</head>
+
+<script type="text/javascript">
+	function top5() {
+		for (var i = 1; i < 6; i++) {
+			document.getElementById("gpurank").rows[i].style.color = "#56E096";
+		}	
+	}
+</script>
+
+<body onload="top5()" class="container-head">
+	<div class="container-fluid" style="height: 100%;">
+
+		<!--head-->
+
+		<div class="row  text-center ">
+			<div class="col-sm-2 ">
+				<a href="{% url 'home' %}"><img type="button" id="logo" src="{% static 'images/home_imag/logo.svg' %}"></a>
+			</div>
+			<div class="col-sm-2 d-flex align-items-center">
+				<p class="cpurank_txt">顯卡排名</p>
+			</div>
+			<div class="col-sm-8">
+			</div>
+
+		</div>
+
+		<div style="height: 100px;"></div>
+		<div class="row justify-content-around">
+			<div class="col"></div>
+			<div class="col-8">
+
+				<form action="" method="Post">
+					{% csrf_token %}
+					<input name="gpu_name1" placeholder="輸入gpu名稱">
+					<!--  <input name="cpu_name2" placeholder="輸入cpu2名稱">-->
+					<input type="submit" value="查詢">
+					<a href="{% url 'cpu_rank' %}"><input type="button" value="CPU"></a>
+				</form>	
+				<table class="table" style="color:white" id="gpurank">
+					<thead>
+						<tr>
+							<td></td>
+							<td align="center">cpu稱號</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td align="center">分數</td>
+						</tr>
+
+					</thead>
+					<tbody>
+						{% for gpurank in gpuranks %}
+						<tr>
+							<td align="center">{{ gpurank.nober}}</td>
+							<td align="center">{{ gpurank.gpuone}}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td align="center">{{ gpurank.score_one }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<div class="col"></div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

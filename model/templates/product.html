@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static%}
+    {% load my_tags %}
+    <link rel="icon" href="{% static 'images/home_imag/favicon.ico' %}" type="image/x-icon" />
+    <title>{{ pd.product_name }}</title>
+    <!-- 將我們需要的google font字體連接 英文 -->
+    <link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+
+    <!-- 將我們需要的google font字體連接 中文 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
+
+    <!-- 與css連接 -->
+    <link rel="stylesheet" href="{% static 'css/category_new_1111.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/home.css' %}"> -->
+    <script type="text/javascript" src="{% static  'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static  'js/popper.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <!-- <script src="https://unpkg.com/@popperjs/core@2"></script> -->
+    <!-- 連接bootstrap相關資源 -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- <link rel="stylesheet" href="{% static 'plugins/bootstrap-5.2.1-dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'plugins/bootstrap-5.2.1-dist/js/bootstrap.min.js' %}"></script> -->
+    <!-- 使用標籤 -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    
+</head>
+
+<!-- <script type="text/javascript">
+    function test() {
+        document.getElementById('cpu_name1').attributes["value"].value = document.getElementById('originalcpu').attributes["value"].value;
+    }
+</script> -->
+
+<body class="container-head  container-fluid" >
+    <div class="row head">
+        <!-- <div style="padding: 10px;"></div> -->
+        <div class="col-lg-2 col-sm-3 col-5 text-right">
+            <!-- col-sm-X 依照畫面縮放排版 -->
+            <a href="{% url 'home' %}"><img type="button" id="logo" src="{% static 'images/home_imag/logo.svg' %}"></a>
+            <!--logo-->
+        </div>
+        <div class="col-lg-8 col-sm-6 col-2  d-flex align-items-center">
+            
+            <div class="container-fluid ">
+                <form action="{% url 'search' %}" method="get" class="row">
+                    
+                <div class="col-lg-1 col-sm-1 col-1"></div>
+                
+                <div class="col-lg-9 col-sm-9 col-9 d-flex align-items-center">
+                    <input type="search" class="self-search" placeholder="Search" aria-label="Search" name="q">
+                    <!--搜尋input-->
+                </div>
+                <div class="col-lg-1 col-sm-1 col-1 rounded float-start">
+                    <button type="submit" class="btn btn-bd-primary"><img src="{% static 'images/home_imag/search_img.png' %}" class="icon"></button>
+                    <!-- <button type="submit"  ><img class="icon" src="{% static 'images/home_imag/search_img.png' %}" alt=""></button> -->
+                    <!--搜尋button-->
+                </div>
+                
+                <div class="col-lg-1 col-sm-1 col-1"></div>
+                </form>
+            </div>
+            
+        </div>
+        <div class="col-lg-2 col-sm-3 col-5  d-flex align-items-center">
+            <!-- align-items-center 垂直置中 -->
+
+            <div>
+                <a href="{% url 'shopping_cart' %}">
+                    <img type="button" id="shopping_icon" class="icon position-relative" src="{% static 'images/home_imag/shopping_cart_icon.png' %}">
+                </a>
+                <!--購物車button-->
+                {% if request.user.is_authenticated %}
+                <span id="shopping_cart_count" class="position-absolute  translate-middle shopping_much_bg rounded-pill">
+                    {{ count }}
+                </span>
+                {% endif %}
+            </div>
+
+            <p style="padding:20px;"></p>
+
+            {% if request.user.is_authenticated %}
+            <div class="dropdown">
+                <img type ="button" class="icon" src="{% static 'images/home_imag/mer.png' %}" id="member_centre" data-bs-toggle="dropdown" aria-expanded="false" >  <!--會員與登入button-->
+                <ul class="dropdown-menu dropdown-menu-end" style="background-color:#1c2f4d; border-radius: 0.5rem;" aria-labelledby="member_centre">
+    
+                        <!--購買紀錄-->
+                        <li><a href="{% url 'purchase_record' %}" class="text-decoration-none"><span  type ="button" class="purchase_record ">購買紀錄</span></a></li>
+    
+                        <!--會員資料-->
+                        <li><a href="{% url 'member_profile' %}" class="text-decoration-none"><span  type ="button" class="member_profile" >會員資料</span></a></li>
+    
+                        <!--我的最愛-->
+                        <!-- <li><span type ="button"class="saved" onclick="javascript:location.href='../saved'">Saved</span></li> -->
+                        <li><a href="{% url 'tracking_list' %}" class="text-decoration-none"><span type ="button"class="saved">追蹤清單</span></a></li>
+                        <!-- {% if request.user.username == 'admin' %}
+                        <li><a href="{% url 'admin_order_tracking' %}" class="text-decoration-none"><span type ="button"class="saved">訂單查詢</span></a></li>
+                        {% else %}
+                        <li><a href="{% url 'user_order_tracking' %}" class="text-decoration-none"><span type ="button"class="saved">訂單查詢</span></a></li>
+
+                        {% endif %} -->
+
+                        <!--更改密碼-->
+                        <li><a href="{% url 'change_password' %}" class="text-decoration-none"><span type ="button"class="change_password">更改密碼</span></a></li>
+    
+                        <li><hr class="dropdown-divider" ></li>
+    
+                        <!--登出-->
+                        <li><span type ="button" class="sign_out"><a href="{% url 'logout' %}" class="text-decoration-none">登出</a></span></li>
+                        
+                </ul>
+            </div>
+            {% else %}
+            <a href="{% url 'login1' %}"><img type ="button" class="icon" src="{% static 'images/home_imag/member_icon.png' %}" id="member_centre"></a>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <!-- <img class="separate_line" src="{% static 'images/separate_line.png' %}"> -->
+
+    <p style="padding:50px;"></p>
+
+    <div class="container ">
+        <div class="row justify-content-around category_background">
+            <!-- 邊界 -->
+            <!-- <div class="col"></div> -->
+            <!-- 圖片 -->
+            <div class="col-11 col-lg-7 col-sm-11 container">
+                <div id="change" class="row d-flex justify-content-center">
+                    <img src="{% static  pd.product_name|image %}" alt="" >   
+                </div>
+                <!-- <br> -->
+                <div class="row text-center">
+                    <span style="padding: 10px;"></span>
+                    <!-- 切換2D3Dbutton -->
+                    <div class="col-6">
+                        <img type="button" id="2d" src="{% static 'images/home_imag/2d_icon.svg' %} " style="width: 60px; ">
+                    </div>
+                    <div class="col-6">
+                        <img type="button" id="3d" src="{% static 'images/home_imag/3d_icon.svg' %} " style="width: 60px; ">
+                    </div>
+                    <!-- <div class="col-4">
+                        <img type="button" id="gif" src="{% static 'images/home_imag/gif.png' %} " style="width: 60px;height: 60px; ">
+                    </div> -->
+                </div>
+            </div>
+            <div class="n-col-11 col-lg-4 n-col-sm-11 " style="height: 350px ;">
+                <div class="COMM_name position-absolute top-0 start-0" value='AMD Ryzen 5 5600X' id='originalcpu'>
+                    {{ pd.product_name }}
+                </div>
+                <br><br>
+                <br><br>
+                <div class="COMM_desc position-absolute start-0">
+                    {{ pd.describe }}
+                </div>
+                <br><br>
+                <br><br>
+                <div class="position-absolute  end-0">
+                    <a href="{{ pd.Details }}" target="_blank" style="text-decoration:none;" class="details">詳細資料</a>
+                </div>
+                <div class="position-absolute bottom-0 start-0">
+                    <!-- 我的最愛button -->
+                    {% csrf_token %}
+                    <!-- 我的最愛button -->
+                    {% if pd.id in tl %}
+                    <img type="button" class="icon add_tl"
+                        src="{% static 'images/home_imag/lightning_icon_save.png' %}" id="{{ pd.id }}"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="加入追蹤清單">
+                    {% else %}
+                    <img type="button" class="icon add_tl"
+                        src="{% static 'images/home_imag/lightning_icon.png' %}" id="{{ pd.id }}"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="加入追蹤清單">
+                    <!-- <input type="button" value="加入追蹤清單" class="add_tl btn btn-outline-primary text-white" id="{{ i.id }}" onclick="location.reload();"> -->
+                    {% endif %}
+                </form>
+                </div>
+                <div class="position-absolute bottom-0 end-0">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="button" value="加入購物車" class="input_cart add_product" id="{{ pd.id }}">
+                    </form>
+                </div>
+            </div>
+            <div class="col"></div>
+
+
+            <div class="toast-container position-fixed bottom-0 end-0 p-3 ">
+                <div id="liveToast" class="toast bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-body text-light" id="toast-body">
+                        已加入購物車
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <br><br>
+
+        {% if pd.category == 'CPU' %}
+        <div class="container-fluid" style="height: 100%;">
+
+
+            <div class="row justify-content-around">
+                <div class="col"></div>
+                <div class="col-11">
+                    
+
+                        <br>
+                        <input type="hidden" name="cpu_name1" readonly="readonly" value='{{ pd.product_name }}' id="cpu_name1"
+                            value size="33">
+                        <!-- <input name="cpu_name222" placeholder="輸入cpu2名稱" size="33"> -->
+                        <select id="com_2" name="cpu_name2" style="width: 25%;" class="com_2">
+                            <!-- <option selected>選擇比較型號</option> -->
+
+                            <option disabled="disable">Intel</option>
+                            <option>Intel Core i5-12400</option>
+                            <option>Intel Pentium Gold G6405</option>
+                            <option>Intel Core i5-12400F</option>
+                            <option>Intel Core i7-12700F</option>
+                            <option disabled="disable">AMD</option>
+                            <option>AMD Ryzen 3 4100</option>
+                            <option>AMD Ryzen 5 5600</option>
+                            <option>AMD Ryzen 5 5600X</option>
+                            <option>AMD Ryzen 5 5600G</option>
+                            <option>AMD Ryzen 7 5700X</option>
+                            <option>AMD Ryzen 7 7700X</option>
+                        </select>
+                        <input  id='send' style="font-size: 18pt;" class="demand" type="submit" value="查詢">
+                    <br>
+                    <table style="color:white;width: 100%;">
+                        <tbody id="tb" style="font-size: 18pt;">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col"></div>
+            </div>
+
+
+            <br><br><br>
+
+        </div>
+        {% endif %}
+        {% if pd.category == 'GPU' %}
+        <div class="container-fluid" style="height: 100%;">
+
+
+            <div class="row justify-content-around">
+                <div class="col"></div>
+                <div class="col-10">
+
+
+                        <br>
+                        <input type="hidden" name="gpu_name1" readonly="readonly" value='{{ pd.product_name }}' id="gpu_name1"
+                            value size="33">
+                        <!-- <input name="cpu_name222" placeholder="輸入cpu2名稱" size="33"> -->
+                        <select id="com_2" name="gpu_name2" style="width: 25%;" class="com_2">
+                            <!-- <option selected>選擇比較型號</option> -->
+                            <option disabled="disable">NVIDIA</option>
+                            <option>GeForce RTX 3090 Ti</option>
+                            <option>GeForce RTX 3090</option>
+                            <option>GeForce RTX 3080 Ti</option>
+                            <option>GeForce RTX 3080 12GB</option>
+                            <option>GeForce RTX 3080</option>
+                            <option>GeForce RTX 3070 Ti</option>
+                            <option>GeForce RTX 3070</option>
+                            <option>GeForce RTX 3060 VENTUS 2X 12G</option>
+                            <option disabled="disable">AMD</option>
+                            <option>Radeon RX 6950 XT</option>
+                            <option>Radeon RX 6900 XT</option>
+                            <option>Radeon RX 6800 XT</option>
+                            
+                        </select>
+
+                        <input id='send'class="demand" type="submit" value="查詢">
+                    
+
+
+                    <table style="color:white;width: 100%;">
+                        <tbody id="tb" style="font-size: 18pt;">
+
+                        </tbody>
+                    </table>
+
+                    <table  width=800 style="color:white;width: 100%;">
+                        <thead>
+                        </thead>
+                        <tbody style="font-size: 18pt;">
+                            {% for gpurank in unigpuranks %}
+                            <tr>
+                                <td align="center"></td>
+                                {%if gpurank.ansr == gpurank.gpuone %}
+                                <td align="center" style="color:#56E096;font-weight:bold;">{{ gpurank.gpuone}} <img src="{% static 'images/trophy.png' %}"
+                                        alt='imagename' width="50" height="50"></td>
+                                {%else%}
+                                <td align="center">{{ gpurank.gpuone}}</td>
+                                {%endif%}
+
+                                <td></td>
+                                {%if gpurank.ansr == gpurank.gputwo %}
+                                <td align="center" style="color:#56E096;font-weight:bold;">{{ gpurank.gputwo }} <img src="{% static 'images/trophy.png' %}"
+                                        alt='imagename' width="50" height="50"></td>
+                                {%else%}
+                                <td align="center">{{ gpurank.gputwo }}</td>
+                                {%endif%}
+                            <tr>
+
+                                <td align="center">跑分</td>
+                                {%if "+" in gpurank.nuans%}
+                                <td align="center">{{ gpurank.score_one}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename' width="25" height="25"></td>
+                                {% else %}
+                                <td align="center">{{ gpurank.score_one}}</td>
+                                {% endif %}
+
+                                <td></td>
+                                {%if "-" in gpurank.nuans%}
+                                <td align="center">{{ gpurank.score_two }} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename' width="25" height="25"></td>
+                                {% else %}
+                                <td align="center">{{ gpurank.score_two }}</td>
+                                {% endif %}
+
+                            </tr>
+                            <tr>
+
+                                <td align="center">性價比</td>
+                                {%if "+" in gpurank.gpugvans%}
+                                <td align="center">{{ gpurank.gpugv}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename' width="25" height="25"></td>
+                                {%else%}
+                                <td align="center">{{ gpurank.gpugv}}</td>
+                                {%endif%}
+                                <td></td>
+
+                                {%if "-" in gpurank.gpugvans%}
+                                <td align="center">{{ gpurank.gpugv_two}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename' width="25" height="25"></td>
+                                {%else%}
+                                <td align="center">{{ gpurank.gpugv_two}} </td>
+                                {% endif %}
+
+                            </tr>
+
+                            <tr>
+                                <td align="center">記憶體</td>
+                                {%if "+" in gpurank.gpumemoryans%}
+                                <td align="center">{{ gpurank.gpumemory}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename' width="25" height="25"></td>
+                                {%else%}
+                                <td align="center">{{ gpurank.gpumemory}}</td>
+                                {%endif%}
+
+                                <td></td>
+
+                                {%if "-" in gpurank.gpumemoryans%}
+                                <td align="center">{{ gpurank.gpumemory_two}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename' width="25" height="25"></td>
+                                {%else%}
+                                <td align="center">{{ gpurank.gpumemory_two}}</td>
+                                {% endif %}
+                            </tr>
+
+                            <tr>
+                                <td align="center">時脈</td>
+                                {%if "+" in gpurank.clratans%}
+                                <td align="center">{{ gpurank.clrat}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename' width="25" height="25"></td>
+                                {%else%}
+                                <td align="center">{{ gpurank.clrat}}</td>
+                                {%endif%}
+
+                                <td></td>
+                                {%if "-" in gpurank.clratans%}
+                                <td align="center">{{ gpurank.clrat_two}} <img src="{% static 'images/good.png' %}"
+                                        alt='imagename' width="25" height="25"></td>
+                                {%else%}
+                                <td align="center">{{ gpurank.clrat_two}}</td>
+                                {%endif%}
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="col"></div>
+            </div>
+
+
+            <br><br><br>
+
+        </div>
+        {% endif %}
+</body>
+
+
+</div>
+
+
+
+</div>
+
+</div>
+</body>
+<style>
+    .custom-tooltip {
+        --bs-tooltip-bg: var(--bs-primary);
+    }
+</style>
+<script type="text/javascript">
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        .forEach(tooltip => {
+            new bootstrap.Tooltip(tooltip)
+        })
+</script>
+<script>
+    // 新增檔案
+    $(".add_product").on("click", function () {
+        //   console.log('a')
+        $.ajax({
+            url: "{% url 'add_product' %}",
+            data: {
+                pk: this.id,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            type: "POST",
+            dataType: 'json',
+
+            success: function (message) {
+                const scc = document.getElementById('shopping_cart_count')
+                const toastLiveExample = document.getElementById('liveToast')
+                const toast = new bootstrap.Toast(toastLiveExample)
+                const toastBody = document.getElementById("toast-body")
+                scc.innerText = message['count']
+                toastLiveExample.className = "toast bg-success"
+                toastBody.innerText = "已加入購物車"
+                
+                toast.show()
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                const toastLiveExample = document.getElementById('liveToast')
+                const toast = new bootstrap.Toast(toastLiveExample)
+                const toastBody = document.getElementById("toast-body")
+                toastLiveExample.className = "toast bg-danger"
+                toastBody.innerText = "登入加入購物車"
+                toast.show()
+            }
+        });
+    });
+    $(".add_tl").on("click", function () {
+        // console.log('a')
+        $.ajax({
+            url: "{% url 'add_tl' %}",
+            data: {
+                pk: this.id,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            type: "POST",
+            dataType: 'json',
+
+            success: function (message) {
+                if(message['data'] == 'add'){
+                    $(`#${message['pk']}`).attr('src',"{% static 'images/home_imag/lightning_icon_save.png' %}")  
+                }else{
+                    $(`#${message['pk']}`).attr('src',"{% static 'images/home_imag/lightning_icon.png' %}") 
+                }  
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                const toastLiveExample = document.getElementById('liveToast')
+                const toast = new bootstrap.Toast(toastLiveExample)
+                const toastBody = document.getElementById("toast-body")
+                toastLiveExample.className = "toast bg-danger"
+                toastBody.innerText = "登入加入追蹤清單"
+                toast.show()
+            }
+        });
+    });
+    $("#2d").on("click", function () {
+        const ch_img = document.getElementById('change')
+        ch_img.innerHTML = `<img src="{% static  pd.product_name|image %}" alt="" >`
+    });
+    $("#3d").on("click", function () {
+        const ch_img = document.getElementById('change')
+        ch_img.innerHTML = `<model-viewer loading="eager" bounds="tight" src="{% static pd.product_name|model_ %}" ar ar-modes="scene-viewer webxr quick-look" camera-controls environment-image="neutral"  shadow-intensity="1" style="background-color:black; width:500px;height: 281px; "  ><div class="progress-bar hide" slot="progress-bar"><div class="update-bar"></div></div><button slot="ar-button" id="ar-button">準備</button></model-viewer>`
+    });
+    $("#gif").on("click", function () {
+        const ch_img = document.getElementById('change')
+        ch_img.innerHTML = `<img src="{% static  pd.product_name|gif_ %}" alt="" onerror="this.src='{% static 'images/no-pictures.png' %}'" >`
+    });
+    $("#send").on("click", function () {
+        console.log($('#com_2').val())
+        $.ajax({
+            url: "{% url 'product' pd.id %}",
+            data: {
+                id: '{{ pd.id }}',
+                name_2:$('#com_2').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            type: "POST",
+            dataType: 'json',
+            success: function (message){
+                $('#tb').html('')
+                if( '{{ pd.category }}' == 'CPU' ){
+                    if(message['ansr'] == message['cpuone']){
+                    $('#tb').append(`<tr>
+                        <td class="align-middle" align="center">型號</td>
+                        <td align="center" style="color:#56E096;font-weight:bold;">${message['cpuone']} 
+                            <img src="{% static 'images/trophy.png' %}"
+                        alt='imagename' width="50" height="50">
+                         </td>
+                         <td></td>
+                         <td class="align-middle" align="center">${message['cputwo']}</td>
+                        </tr>`)
+                }else if(message['ansr'] == message['cputwo']){
+                    $('#tb').append(`<tr>
+                        <td class="align-middle" align="center">型號</td>
+                        <td class="align-middle" align="center">${message['cpuone']}</td>
+                         <td></td>
+                         <td align="center" style="color:#56E096;font-weight:bold;">${message['cputwo']} 
+                            <img src="{% static 'images/trophy.png' %}"
+                        alt='imagename' width="50" height="50">
+                         </td>
+                        </tr>`)
+                }else{
+                    $('#tb').append(`<tr>
+                        <td class="align-middle" align="center">型號</td>
+                        <td class="align-middle" align="center">${message['cpuone']}</td>
+                         <td></td>
+                         <td class="align-middle" align="center">${message['cputwo']}</td>
+                        </tr>`)
+                }
+                if( message['nuans'][0]=='+'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">跑分</td>
+                        <td align="center">${message['score_one']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                        <td></td>
+                        <td align="center">${message['score_two']}</td>
+                       </tr> 
+                    `)
+                }else if( message['nuans'][0]=='-'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">跑分</td>
+                        <td align="center">${message['score_one']}</td>
+                        <td></td>
+                        <td align="center">${message['score_two']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                       </tr> 
+                    `)
+                }else{
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">跑分</td>
+                        <td align="center">${message['score_one']}</td>
+                        <td></td>
+                        <td align="center">${message['score_two']}</td>
+                       </tr> 
+                    `)
+                }
+                if( message['cpugvans'][0]=='+'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">性價比</td>
+                        <td align="center">${message['cpugv']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                        <td></td>
+                        <td align="center">${message['cpugv_two']}</td>
+                       </tr> 
+                    `)
+                }else if( message['cpugvans'][0]=='-'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">性價比</td>
+                        <td align="center">${message['cpugv']}</td>
+                        <td></td>
+                        <td align="center">${message['cpugv_two']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                       </tr> 
+                    `)
+                }else{
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">性價比</td>
+                        <td align="center">${message['cpugv']}</td>
+                        <td></td>
+                        <td align="center">${message['cpugv_two']}</td>
+                       </tr> 
+                    `)
+                }
+                if( message['cpucoreans'][0]=='+'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">核心</td>
+                        <td align="center">${message['cpucore']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                        <td></td>
+                        <td align="center">${message['cpucore_two']}</td>
+                       </tr> 
+                    `)
+                }else if( message['cpucoreans'][0]=='-'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">核心</td>
+                        <td align="center">${message['cpucore']}</td>
+                        <td></td>
+                        <td align="center">${message['cpucore_two']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                       </tr> 
+                    `)
+                }else{
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">核心</td>
+                        <td align="center">${message['cpucore']}</td>
+                        <td></td>
+                        <td align="center">${message['cpucore_two']}</td>
+                       </tr> 
+                    `)
+                }
+                if( message['clratans'][0]=='+'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">核心</td>
+                        <td align="center">${message['clrat']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                        <td></td>
+                        <td align="center">${message['clrat_two']}</td>
+                       </tr> 
+                    `)
+                }else if( message['clratans'][0]=='-'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">核心</td>
+                        <td align="center">${message['clrat']}</td>
+                        <td></td>
+                        <td align="center">${message['clrat_two']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                       </tr> 
+                    `)
+                }else{
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">核心</td>
+                        <td align="center">${message['clrat']}</td>
+                        <td></td>
+                        <td align="center">${message['clrat_two']}</td>
+                       </tr> 
+                    `)
+                }
+                }else{
+                    console.log(message['nuans'][0  ]=='+')
+                    if(message['ansr'] == message['gpuone']){
+                    $('#tb').append(`<tr>
+                        <td class="align-middle" align="center">型號</td>
+                        <td align="center" style="color:#56E096;font-weight:bold;">${message['gpuone']} 
+                            <img src="{% static 'images/trophy.png' %}"
+                        alt='imagename' width="50" height="50">
+                         </td>
+                         <td></td>
+                         <td class="align-middle" align="center">${message['gputwo']}</td>
+                        </tr>`)
+                }else if(message['ansr'] == message['gputwo']){
+                    $('#tb').append(`<tr>
+                        <td class="align-middle" align="center">型號</td>
+                        <td class="align-middle" align="center">${message['gpuone']}</td>
+                         <td></td>
+                         <td align="center" style="color:#56E096;font-weight:bold;">${message['gputwo']} 
+                            <img src="{% static 'images/trophy.png' %}"
+                        alt='imagename' width="50" height="50">
+                         </td>
+                        </tr>`)
+                }else{
+                    $('#tb').append(`<tr>
+                        <td class="align-middle" align="center">型號</td>
+                        <td class="align-middle" align="center">${message['gpuone']}</td>
+                         <td></td>
+                         <td class="align-middle" align="center">${message['gputwo']}</td>
+                        </tr>`)
+                }
+                if( message['nuans'][0]=='+'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">跑分</td>
+                        <td align="center">${message['score_one']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                        <td></td>
+                        <td align="center">${message['score_two']}</td>
+                       </tr> 
+                    `)
+                }else if( message['nuans'][0]=='-'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">跑分</td>
+                        <td align="center">${message['score_one']}</td>
+                        <td></td>
+                        <td align="center">${message['score_two']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                       </tr> 
+                    `)
+                }else{
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">跑分</td>
+                        <td align="center">${message['score_one']}</td>
+                        <td></td>
+                        <td align="center">${message['score_two']}</td>
+                       </tr> 
+                    `)
+                }
+                console.log(message['gpugvans'])
+                if( message['gpugvans'][0]=='+'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">性價比</td>
+                        <td align="center">${message['gpugv']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                        <td></td>
+                        <td align="center">${message['gpugv_two']}</td>
+                       </tr> 
+                    `)
+                }else if( message['gpugvans'][0]=='-'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">性價比</td>
+                        <td align="center">${message['gpugv']}</td>
+                        <td></td>
+                        <td align="center">${message['gpugv_two']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                       </tr> 
+                    `)
+                }else{
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">性價比</td>
+                        <td align="center">${message['gpugv']}</td>
+                        <td></td>
+                        <td align="center">${message['gpugv_two']}</td>
+                       </tr> 
+                    `)
+                }
+                if( message['gpumemoryans'][0]=='+'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">記憶體</td>
+                        <td align="center">${message['gpumemory']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                        <td></td>
+                        <td align="center">${message['gpumemory_two']}</td>
+                       </tr> 
+                    `)
+                }else if( message['gpumemoryans'][0]=='-'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">記憶體</td>
+                        <td align="center">${message['gpumemory']}</td>
+                        <td></td>
+                        <td align="center">${message['gpumemory_two']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                       </tr> 
+                    `)
+                }else{
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">記憶體</td>
+                        <td align="center">${message['gpumemory']}</td>
+                        <td></td>
+                        <td align="center">${message['gpumemory_two']}</td>
+                       </tr> 
+                    `)
+                }
+                console.log(message['clratans'])
+                if( message['clratans'][0]=='+'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">時脈</td>
+                        <td align="center">${message['clrat']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                        <td></td>
+                        <td align="center">${message['clrat_two']}</td>
+                       </tr> 
+                    `)
+                }else if( message['clratans'][0]=='-'){
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">時脈</td>
+                        <td align="center">${message['clrat']}</td>
+                        <td></td>
+                        <td align="center">${message['clrat_two']} <img src="{% static 'images/good.png' %}"
+                        alt='imagename' width="35" height="35"></td>
+                       </tr> 
+                    `)
+                }else{
+                    $('#tb').append(`
+                       <tr>
+                        <td align="center">時脈</td>
+                        <td align="center">${message['clrat']}</td>
+                        <td></td>
+                        <td align="center">${message['clrat_two']}</td>
+                       </tr> 
+                    `)
+                }
+                }
+
+                // console.log()
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        });
+    });
+</script>

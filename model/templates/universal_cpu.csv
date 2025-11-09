@@ -1,0 +1,11 @@
+,cpu,cpu_point,cpu_money,cost_performance,core,clock_rate
+0,Intel Core i5-12400,19501,6900,2.8,6,4.4
+1,AMD Ryzen 5 5600X,21970,6787,3.2,6,3.7
+2,Intel Core i7-12700F,31518,11431,2.7,12,4.9
+3,Intel Core i5-12400F,19783,6200,3.1,6,4.4
+4,AMD Ryzen 3 4100,11336,2970,3.8,4,4
+5,Intel Pentium Gold G6405,4285,2552,1.6,2,4.1
+6,AMD Ryzen 7 7700X,36564,13150,2.7,8,5.4
+7,AMD Ryzen 5 5600,21508,5072,4.2,6,4.4
+8,AMD Ryzen 5 5600G,19834,5500,3.6,6,4.4
+9,AMD Ryzen 7 5700X,26622,8270,3.2,8,4.6

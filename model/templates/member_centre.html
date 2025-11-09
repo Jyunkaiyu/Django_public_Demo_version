@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+
+<head>
+    <!-- 使用標籤 -->
+    {% load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/home_imag/favicon.ico' %}" type="image/x-icon" />
+
+    <!-- 將我們需要的google font字體連接 英文 -->
+    <link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+
+    <!-- 將我們需要的google font字體連接 中文 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
+
+    <!-- 與css連接 -->
+    <link rel="stylesheet" href="{% static 'css/member_centre.css' %}">
+
+
+    <!-- 連接bootstrap相關資源 -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+</head>
+
+<body style="background-color: rgba(0, 5.000000176951289, 20.000000707805157, 1);">
+    <div class="container-head" style="height: 100%;">
+
+        <!--head-->
+
+        <div class="row  text-center">
+            <div class="col-sm-2 ">
+                <img type="button" id="logo" src="{% static 'images/home_imag/logo.png' %}"
+                    onclick="javascript:location.href='../home'">
+            </div>
+            <div class="col-sm-1 d-flex align-items-center">
+                <p class="member_txt">Member</p>
+            </div>
+            <div class="col-sm-9">
+            </div>
+        </div>
+
+        <div style="height: 150px;"></div>
+        <div class="row text-center">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4 bg">
+                <div style="height: 50px;"></div>
+                <!--購買紀錄-->
+                <span  type ="button" class="purchase_record " onclick="javascript:location.href='../purchase_record'">Purchase Record</span>
+                <div style="height: 50px;"></div>
+                <!--會員資料-->
+                <span  type ="button"class="member_profile" onclick="javascript:location.href='../member_profile'">Member Profile</span>
+                <div style="height: 50px;"></div>
+                <!--我的最愛-->
+                <span type ="button"class="saved" onclick="javascript:location.href='../saved'">Saved</span>
+                <div style="height: 50px;"></div>
+                <!--登出-->
+                <span type ="button" class="sign_out" onclick="javascript:location.href='../home'">Sign out</span>
+                <div style="height: 50px;"></div>
+            </div>
+        </div>
+        <div style="height: 200px;"></div>
+    </div>
+</body>
+
+</html>

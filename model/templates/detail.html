@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static%}
+    {% load my_tags %}
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="/static/css/styles.css"> -->
+  
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sign_up.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shopping_cart.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+  
+    <link rel="stylesheet" href="/static/plugins/bootstrap-5.2.1-dist/css/bootstrap.min.css" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <script type="text/javascript" src="{% static  'plugins/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js' %}">
+    </script> -->
+    <script type="text/javascript" src="{% static  'js/jquery-3.6.0.min.js' %}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <!-- <script type="text/javascript" src="{% static  'plugins/bootstrap-5.2.0-beta1-dist/js/bootstrap.min.js' %}">
+    </script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body style="background-color: rgba(0, 5.000000176951289, 20.000000707805157, 1);">
+    <div style="height: 80px;"></div>
+    <div class="container">
+    <table border="1" class="table table-bordered text-light">
+      <tr>
+        <td>產品名稱</td>
+        <td>產品數量</td>
+      </tr>
+      {% for i in detail %}
+      <tr>
+        <td>{{ i.product_name.product_name }}</td>
+        <td>{{ i.counts }}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td colspan="2" class="text-end">
+          <span>總計：</span>
+          {{ detail.0.total }}
+        </td>
+        <!-- <td> -->
+          <!-- {% if request.user.username == 'admin' %}
+          <form method="post">
+          <select name="" class="state">
+            <option value="待出貨" {% if detail.0.state == '待出貨' %}selected='selected'{% endif %}>待出貨</option>
+            <option value="待收貨" {% if detail.0.state == '待收貨' %}selected='selected'{% endif %}>待收貨</option>
+          </select>
+          </form> -->
+          <!-- <div id="send_email">
+            {% if detail.0.state == '待收貨' %}
+            <input type='button' id="send" value='送出到貨通知'>
+            {% endif %}
+          </div>
+          {% else %}
+          {{ detail.0.state }}
+          {% endif %} -->
+        <!-- </td> -->
+      </tr>
+    </table>
+  </div>
+  </body>
+  <script>
+    $('.state').on('change',function(){
+      $.ajax({
+        url: "{% url 'update_state' %}",
+        data: {
+          order_number:'{{ detail.0.order_number }}',
+          state:this.value
+        },                           
+        type:"POST",
+        dataType:'json',
+
+        success: function(message){
+          if(message['state']=='待收貨'){
+            $("#send_email").html("<input type='button' value='送出到貨通知'>")
+          }else{
+            $("#send_email").html('')
+          }
+        },
+
+        error:   function(jqXHR, textStatus, errorThrown){ 
+        }
+    });
+    })
+    $('#send').on('click',function(){
+      $.ajax({
+        url:"{% url 'send_email' %}",
+        data:{
+          od:"{{ detail.0.order_number }}"
+        },
+        type:"POST",
+        dataType:'json',
+        success: function(message){
+
+        },
+        error: function(message){
+
+        }
+      })
+    })
+  </script>
+</html>

@@ -1,0 +1,120 @@
+.container-head {
+    background-color: rgba(0, 5.000000176951289, 20.000000707805157, 1);
+    height: 100%;
+}
+
+#logo {
+		width: 180px;
+		height: 120px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.member_txt { 
+    color:rgba(101.00000157952309, 99.00000169873238, 255, 1);
+	font-family:Coda;
+	text-align:left;
+	font-size:40px;
+}
+
+.id_username { 
+    color:#627CEA;
+    font-family:Coda;
+    font-size:30px;   
+}
+
+.user_input_bg { 
+	background-color:rgba(95.00000193715096, 149.00000631809235, 213.00000250339508, 0.10000000149011612);
+	width:100%;
+	height:80px;
+    border: 0;
+	border-top-left-radius:20px;
+	border-top-right-radius:20px;
+	border-bottom-left-radius:20px;
+	border-bottom-right-radius:20px;
+}
+
+.id_email { 
+	color:#5F95D5;
+	font-family:Coda;
+	font-size:30px;
+}
+
+
+.password_input_bg { 
+	background-color :#081123;
+    width:100%;
+	height:80px;
+    border: 0;
+	border-top-left-radius:20px;
+	border-top-right-radius:20px;
+	border-bottom-left-radius:20px;
+	border-bottom-right-radius:20px;
+}
+
+.id_first_name { 
+	color:#5CAEC0;
+	font-family:Coda;
+	font-size:30px;
+}
+
+.confirm_password_input_bg { 
+	background-color :#081123;
+    width:100%;
+	height:80px;
+    border: 0;
+	border-top-left-radius:20px;
+	border-top-right-radius:20px;
+	border-bottom-left-radius:20px;
+	border-bottom-right-radius:20px;
+}
+
+.id_password1 { 
+	color:#59C7AB;
+	font-family:Coda;
+	font-size:30px;
+}
+
+.email_input_bg { 
+	background-color :#081123;
+    width:100%;
+	height:80px;
+    border: 0;
+	border-top-left-radius:20px;
+	border-top-right-radius:20px;
+	border-bottom-left-radius:20px;
+	border-bottom-right-radius:20px;
+}
+
+.id_password2 { 
+	color:#56E096;
+	font-family:Coda;
+	font-size:30px;
+}
+
+.id_phone { 
+	color:#5CAEC0;
+	font-family:Coda;
+	font-size:30px;
+}
+
+.sgin_up_btn { 
+	color:rgba(82.00000271201134, 247.00000047683716, 127.00000002980232, 1);
+	font-family:Coda;
+	font-size:40px;
+    background-color:rgba(86.00000247359276, 224.000001847744, 150.0000062584877, 0.10000000149011612);
+    width:100%;
+	height:80px;
+    border: 0;
+	border-top-left-radius:30px;
+	border-top-right-radius:30px;
+	border-bottom-left-radius:30px;
+	border-bottom-right-radius:30px;
+}
+
+
+input::placeholder {
+    font-size: 20pt;
+    font-family:Coda;
+  }
+ 

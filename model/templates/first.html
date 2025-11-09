@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% load static %}
+  <link rel="stylesheet" href="/static/plugins/bootstrap-5.2.1-dist/css/bootstrap.css" />
+  <script type="text/javascript"
+    src="{% static  'plugins/bootstrap-5.2.1-dist/js/bootstrap.bundle.min.js' %}"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  {% for message in messages %}
+  <div class="container-fluid p-0" id="alert">
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">        
+      </button>
+      {{ message }}
+    </div>
+  </div>
+  {% endfor %}
+  <form action="" method="post">
+    {% csrf_token %}
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Members</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+          </ul>
+          <form class="d-flex" method="post" role="search"> 
+            <div class="input-group w-auto">
+              <input type="search" class="form-control" name="search" value="{{search_name}}">
+              <input type="submit" value="搜尋" class="btn btn-outline-primary">
+            </div>
+          </form>
+          {% if request.user.is_authenticated %}
+        
+        <div class="btn-group p-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor"
+            class="bi bi-person-circle dropdown-toggle" viewBox="0 0 16 16" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+            <path fill-rule="evenodd"
+              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+          </svg>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'profile' request.user.id %}">個人資料</a></li>
+            <li>
+              <a class="dropdown-item position-relative" href="{% url 'shopping_cart' %}">
+                購物車
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {{ shopping_cart_count }}
+                  <span class="visually-hidden">unread messages</span>
+                </span>
+              </a>
+            </li>
+            <li><a class="dropdown-item" href="{% url 'password_reset' %}">變更密碼</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a href="{% url 'logout' %}" class="btn btn-outline-primary me-2 dropdown-item">登出</a></li>
+          </ul>
+        </div>
+        <div class="p-2 navbar-text">
+          哈囉,{{ request.user.first_name }}{{ request.user.last_name }}
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {% else %}
+        <div class="p-2">
+          <a href="{% url 'login' %}" class="btn btn-outline-primary">登入</a>
+        </div>
+        {% endif %}
+      </div>
+        </div>
+      </div>      
+      <br>  
+    </nav>
+    <div class="container d-flex flex-row mb-3">
+      {% load static %}
+
+      <div class="p-2 d-flex flex-column mb-3 flex-fill">
+
+        <table border="1" class="table table-bordered" style="height: 300px;">
+          {% for x in class_members %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.name }}</td>
+            <td>{{ x.gender }}</td>
+            <td><a href="delete/{{ x.id }}">delete</a></td>
+            <td><input type="button" value="加入購物車" class="add_product btn btn-outline-primary" id="{{ x.id }}"></td>
+          </tr>
+          <!-- <a href="{% url 'add_product' %}" id="{{ x.id }}">加入購物車</a> -->
+          {% endfor %}
+        </table>
+        <div>
+          <a href="add/">Add class_members</a>
+        </div>
+        <div class="text-center ">
+          <div class="btn-group btn-group-lg" >
+            <!-- <input type="submit" value="上一頁" name="change_page" class="btn btn-outline-primary btn-sm"/>
+            <button type="button" class="btn btn-outline-primary btn-sm">{{ current_page }}</button>            
+            <input type="submit" value="下一頁" name="change_page" class="btn btn-outline-primary btn-sm"/>  -->
+            {% if class_members.has_previous %}
+            <a href="?page={{ class_members.previous_page_number }}" class="btn btn-outline-primary btn-sm">上一頁</a>
+            {% else %}
+            <a class="btn btn-outline-primary btn-sm">上一頁</a>
+            {% endif %}
+            <a class="btn btn-outline-primary btn-sm">頁數 {{ class_members.number }} | 總頁數 {{ class_members.paginator.num_pages }}</a>
+              
+            {% if class_members.has_next %}
+            <a href="?page={{ class_members.next_page_number }}" class="btn btn-outline-primary btn-sm">下一頁</a>
+            {% else %}
+            <a class="btn btn-outline-primary btn-sm">下一頁</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="p-2">
+
+        <div class="form-check">
+          <input type="checkbox" class="a form-check-input" name="gender" value="boy" {% if 'boy' in gender%}
+            checked="checked" {% else %} '' {% endif %}>
+          <label for="gender" class="form-check-label">boy</label><br />
+        </div>
+
+        <div class="form-check">
+          <input type="checkbox" class="a form-check-input" name="gender" value="girl" {% if 'girl' in gender%}
+            checked="checked" {% else %} '' {% endif %}>
+          <label for="gender" class="form-check-label">girl</label><br />
+        </div>
+
+        <input type="submit" value="篩選" class="btn btn-outline-primary" />
+        <input type="button" value="清除" id="clear" class="btn btn-outline-primary" />
+
+  </form>
+  </div>
+  </div>
+  <!-- <h1>{{ user }}</h1> --> 
+  <div class="toast-container position-fixed bottom-0 end-0 p-3 ">
+    <div id="liveToast" class="toast bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body text-light">
+        已加入購物車
+      </div>
+    </div>
+  </div>
+  <div class="container p-2 d-flex flex-column mb-3 flex-fill">
+  <table border="1" class="table table-bordered" style="height: 300px;">
+    {% for x in pd %}
+    <tr>
+      <td><a href="{% url 'product' x.id %}">{{ x.product_name }}</a></td>
+      <td>${{ x.price }}</td>
+      <!-- <td><a href="delete/{{ x.id }}">delete</a></td>
+      <td><input type="button" value="加入購物車" class="add_product btn btn-outline-primary" id="{{ x.id }}"></td> -->
+    </tr>
+    <!-- <a href="{% url 'add_product' %}" id="{{ x.id }}">加入購物車</a> -->
+    {% endfor %}
+  </table>
+</div>
+</body>
+<script type="text/javascript"
+src="{% static  'js/jquery-3.6.0.min.js' %}"></script>
+
+<script>
+  // 新增檔案
+  $(".add_product").on("click", function() {
+    $.ajax({
+        url: "{% url 'add_product' %}",
+        data: {
+          pk:this.id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },                           
+        type:"POST",
+        dataType:'json',
+
+        success: function(message){
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)         
+          console.log(bootstrap.Toast.getInstance(toastLiveExample))    
+          toast.show()
+        },
+        error:   function(jqXHR, textStatus, errorThrown){ 
+            document.getElementById("message").innerHTML=errorThrown; 
+        }
+    });
+  });
+</script>
+
+<script type="text/javascript" src="{% static  'js/first.js' %}"></script>
+</html>

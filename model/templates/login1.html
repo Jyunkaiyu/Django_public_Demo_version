@@ -1,0 +1,210 @@
+<html>
+
+<head>
+	{% load static%}
+	{% load socialaccount %}
+	<link rel="icon" href="{% static 'images/home_imag/favicon.ico' %}" type="image/x-icon" />
+
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+	<!-- <link rel="stylesheet" href="/static/css/styles.css"> -->
+
+	<link rel="stylesheet" href="{% static 'css/login.css' %}">
+	<link rel="stylesheet" href="{% static 'css/sign_up.css' %}">
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	{% if page == 'login' %}
+	<title>登入</title>
+	{% else %}
+	<title>註冊</title>
+	{% endif %}
+
+
+</head>
+<body style="background-color: rgba(0, 5.000000176951289, 20.000000707805157, 1);">
+	<div class="container-head  container-fluid" style="height: 100%;">
+		{% load my_tags %}
+		<!--head-->
+
+
+		
+
+		<!--User input-->
+		{% if page == 'login' %}
+		<div class="row  text-center">
+			<div class="col-1 ">
+				
+			</div>
+			<div class="col-2 text-left">
+				<a href="{% url 'home' %}"><img  type ="button" id="logo" src="{% static 'images/home_imag/logo.svg' %}" ></a>
+			</div>
+			<div class="col-2 d-flex text-left align-items-center">
+				<p class="member_txt"><b>登入</b></p>
+			</div>
+			<div class="col">
+			</div>
+		</div>
+		<div style="height: 100px;"></div>
+		<form method="post">
+			{% csrf_token %}
+		<div class="row align-items-center">
+			<div class="col-sm-3 ">
+			</div>
+			<div class="col-sm-2">
+				<span class="user_txt text-left" >帳號</span>
+			</div>
+			<div class="col-sm-4 ">
+				<input type="input" class="user_input_bg  input_font" placeholder="帳號" name="username">
+			</div>
+		</div>
+
+		<div style="height: 50px;"></div>
+
+		<!--password input-->
+
+		<div class="row align-items-center">
+			<div class="col-sm-3 ">
+
+			</div>
+			<div class="col-sm-2">
+				<p class="password_txt text-left" >密碼</p>
+			</div>
+			<div class="col-sm-4 ">
+				<input type="password" class="user_input_bg  input_font" placeholder="密碼" name="password">
+			</div>
+		</div>
+
+		<div style="height: 50px;"></div>
+
+		<!-- login button -->
+
+		<div class="row">
+			<div class="col-sm-3 ">
+
+			</div>
+			<div class="col-sm-6 ">
+				<input type="submit" class="login_btn text-center" value="登入">
+				<!-- <button ></button> -->
+			</div>
+		</div>
+		</form>
+		<div style="height: 50px;"></div>
+
+		<div class="row">
+			<div class="col-sm-3">
+			</div>
+			<div class="col-sm-3">
+				<!--忘記密碼-->
+				<a href="{% url 'password_reset' %}" class="forgot_password_txt">忘記密碼</a>
+			</div>
+			<div class="col-sm-3 text-right">
+				<!--創建帳號-->
+				<a href="{% url 'register' %}" class="forgot_password_txt ">創建帳號</a>
+			</div>
+			<div class="col-sm-3">
+			</div>
+			<!-- <a class="btn btn-danger" href="{% url 'social:begin' 'google-oauth2' %}">Google登入</a> -->
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+
+			</div>
+			<div class="col-sm-4 text-center">
+				<a class="" href="{% provider_login_url 'google' method='oauth2' %}"><img src="{% static 'images/google.png' %}" alt="" style="width:50px ;"></a>
+				<!-- <button ></button> -->
+			</div>
+			<div class="col-sm-4">
+
+			</div>
+		</div>
+		{% if messages %}
+		<div id="error" class="row text-center text-light">
+      <div class="col align-self-start">
+        
+					{% for message in messages %}
+							{{ message }}
+					{% endfor %}
+        
+      </div>
+    </div>
+		{% endif %}
+		{% else %}
+		<div class="row  text-center">
+			<div class="col-1 ">
+				
+			</div>
+			<div class="col-2 text-left">
+				<a href="{% url 'home' %}"><img  type ="button" id="logo" src="{% static 'images/home_imag/logo.svg' %}" ></a>
+			</div>
+			<div class="col-2 d-flex text-left align-items-center">
+				<p class="member_txt"><b>創建帳號</b></p>
+			</div>
+			<div class="col">
+			</div>
+		</div>
+		<div style="height: 80px"></div>
+		<form method="post">
+			{% csrf_token %}
+			{% for field in form %}
+			<div class="row align-items-center">
+				<div class="col-sm-3 ">
+				</div>
+				<div class="col-sm-2">
+					<span class="{{ field.auto_id }} text-left" >{{ field.label }}</span>
+				</div>
+				<div class="col-sm-4 ">
+					{{ field }}
+					<!-- <input type="input" class="user_input_bg" placeholder="UserName" name="username"> -->
+				</div>
+			</div>
+			<div style="height: 25px;"></div>
+      {% endfor %}
+		<!--password input-->
+
+		<!-- login button -->
+
+		<div class="row">
+			<div class="col-sm-3 ">
+
+			</div>
+			<div class="col-sm-6 ">
+				<input type="submit" class="login_btn text-center" value="註冊">
+				<!-- <button ></button> -->
+			</div>
+		</div>
+		</form>
+		{% if form.errors %}
+		<div id="error" class="row text-center text-light">
+      <div class="col align-self-start">
+        
+        {% for field in form %}
+        {% for error in field.errors %}
+        <div class=”alert alert-danger”>
+          <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+        <div class=”alert alert-danger”>
+          <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        
+      </div>
+    </div>
+		{% endif %}
+		{% endif %}
+
+</body>
+<script>
+
+</script>
+</html>
